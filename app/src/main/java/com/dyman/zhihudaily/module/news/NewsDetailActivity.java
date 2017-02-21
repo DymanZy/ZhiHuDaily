@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.dyman.zhihudaily.R;
@@ -28,19 +29,16 @@ public class NewsDetailActivity extends AppCompatActivity implements SwipeRefres
 
     private static final String TAG = NewsDetailActivity.class.getSimpleName();
 
-    @BindView(R.id.webView_activity_news_detail)
-    WebView webView;
-    @BindView(R.id.swipeRefresh_activity_news_detail)
-    SwipeRefreshLayout mSwipeRefresh;
-
     private int newsID;
 
+    private SwipeRefreshLayout mSwipeRefresh;
+
+    private WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
-        ButterKnife.bind(this);
 
         initToolbar();
         init();
@@ -59,18 +57,26 @@ public class NewsDetailActivity extends AppCompatActivity implements SwipeRefres
 
 
     private void init() {
+
         // 初始化数据
         newsID = getIntent().getIntExtra(IntentKeys.NEWS_ID, 0);
-
+        //  初始化下拉刷新控件
+        mSwipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh_activity_news_detail);
         mSwipeRefresh.setColorSchemeResources(android.R.color.holo_blue_light, R.color.colorAccent,
                 android.R.color.holo_red_light);
         mSwipeRefresh.setOnRefreshListener(this);
+        //  初始化网页显示控件
+        webView = (WebView) findViewById(R.id.webView_activity_news_detail);
+        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webView.getSettings().setJavaScriptEnabled(true);// 设置支持JavaScript
+
+        loadData(String.valueOf(newsID));
     }
 
 
-    private void loadData() {
+    private void loadData(String newsID) {
         RetrofitHelper.getZhiHuAPI()
-                .getNewsDetail(String.valueOf(newsID))
+                .getNewsDetail(newsID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<NewsDetailInfo>() {
@@ -90,14 +96,21 @@ public class NewsDetailActivity extends AppCompatActivity implements SwipeRefres
                     public void onNext(NewsDetailInfo newsDetailInfo) {
                         mSwipeRefresh.setRefreshing(false);
                         // TODO: update UI
+                        showHtml(newsDetailInfo.getBody());
                     }
                 });
     }
 
 
+    private void showHtml(String html) {
+        Log.i(TAG, "showHtml: " + html);
+        webView.loadDataWithBaseURL(null, html,"text/html", "utf-8", null);
+    }
+
+
     @Override
     public void onRefresh() {
-        loadData();
+        loadData(String.valueOf(newsID));
     }
 
 
