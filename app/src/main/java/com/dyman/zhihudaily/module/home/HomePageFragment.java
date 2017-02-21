@@ -4,14 +4,20 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.dyman.zhihudaily.R;
+import com.dyman.zhihudaily.ZhiHuDailyApp;
+import com.dyman.zhihudaily.adapter.AdapterItemClickListener;
+import com.dyman.zhihudaily.adapter.HomePageAdapter;
 import com.dyman.zhihudaily.base.BaseFragment;
 import com.dyman.zhihudaily.entity.NewsLatestInfo;
 import com.dyman.zhihudaily.network.RetrofitHelper;
+import com.dyman.zhihudaily.utils.SnackbarUtil;
 import com.dyman.zhihudaily.utils.ToastUtil;
 import com.dyman.zhihudaily.widget.MyImageTextLayoutHolderView;
 
@@ -25,7 +31,7 @@ import rx.schedulers.Schedulers;
  * Created by dyman on 2017/2/20.
  */
 
-public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
+public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, AdapterItemClickListener{
 
     private static final String TAG = HomePageFragment.class.getSimpleName();
 
@@ -34,6 +40,10 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private ConvenientBanner mConvenientBanner;
+
+    private RecyclerView mRecyclerView;
+
+    private HomePageAdapter adapter;
 
     private Handler mHandler = new Handler(){
         @Override
@@ -90,6 +100,14 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         mSwipeRefreshLayout.setOnRefreshListener(this);
         //  设置轮循菜单
         mConvenientBanner = (ConvenientBanner) getSupportActivity().findViewById(R.id.convenientBanner_fragment_home);
+        //  实例化HomePageAdapter
+        adapter = new HomePageAdapter(ZhiHuDailyApp.getInstance());
+        adapter.setAdapterListener(this);
+        //  初始化RecyclerView
+        mRecyclerView = (RecyclerView) getSupportActivity().findViewById(R.id.newsLatest_rv);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getSupportActivity()));
+        mRecyclerView.setAdapter(adapter);
+
     }
 
 
@@ -120,6 +138,8 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
                                    mSwipeRefreshLayout.setRefreshing(false);
                                    ToastUtil.ShortToast("数据加载成功");
                                    updateConvenientBanner(newsLatestInfo.getTop_stories());
+                                   adapter.updateAdapter(newsLatestInfo.getStories());
+                                   adapter.notifyDataSetChanged();
                                }
                            }
                 );
@@ -146,6 +166,16 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     }
 
 
+    /**
+     *  adapter的点击响应处理
+     * @param position
+     */
+    @Override
+    public void onAdapterItemClick(int position) {
+        SnackbarUtil.showMessage(mRecyclerView, "点击了第" + position + "个");
+    }
+
+
     @Override
     public void onRefresh() {
         mHandler.sendEmptyMessageDelayed(HANDLER_WHAT_REFRESH, 1000);
@@ -164,4 +194,5 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         //  停止翻页
         mConvenientBanner.stopTurning();
     }
+
 }
