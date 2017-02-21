@@ -1,5 +1,6 @@
 package com.dyman.zhihudaily.module.common;
 
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -10,14 +11,16 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.module.home.HomePageFragment;
+import com.dyman.zhihudaily.module.news.NewsDetailActivity;
 import com.dyman.zhihudaily.utils.ToastUtil;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -55,6 +58,11 @@ public class MainActivity extends BaseActivity
         //  设置抽屉菜单监听
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        //  抽屉头部控件监听
+        View headerLayout = navigationView.getHeaderView(0);
+        headerLayout.findViewById(R.id.userInfo_ll_nav_header_main).setOnClickListener(this);
+        headerLayout.findViewById(R.id.userCollectInfo_ll_nav_header_main).setOnClickListener(this);
+        headerLayout.findViewById(R.id.offlineDownload_ll_nav_header_main).setOnClickListener(this);
     }
 
 
@@ -71,6 +79,21 @@ public class MainActivity extends BaseActivity
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.userInfo_ll_nav_header_main:
+                ToastUtil.ShortToast("点击了用户信息");
+                break;
+            case R.id.userCollectInfo_ll_nav_header_main:
+
+                break;
+            case R.id.offlineDownload_ll_nav_header_main:
+
+                break;
+        }
+    }
+
 
     /**
      *  先退出菜单，再退出应用
@@ -85,12 +108,14 @@ public class MainActivity extends BaseActivity
         }
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -107,6 +132,7 @@ public class MainActivity extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -122,6 +148,8 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_before) {
 
         } else if (id == R.id.nav_share) {
+            Intent it = new Intent(MainActivity.this, NewsDetailActivity.class);
+            startActivity(it);
 
         } else if (id == R.id.nav_send) {
 
@@ -145,5 +173,6 @@ public class MainActivity extends BaseActivity
             finish();
         }
     }
+
 
 }

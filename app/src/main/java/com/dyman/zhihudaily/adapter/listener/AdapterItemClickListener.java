@@ -1,4 +1,4 @@
-package com.dyman.zhihudaily.adapter;
+package com.dyman.zhihudaily.adapter.listener;
 
 import android.view.View;
 

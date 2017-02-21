@@ -1,5 +1,6 @@
 package com.dyman.zhihudaily.module.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,10 +13,12 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.ZhiHuDailyApp;
-import com.dyman.zhihudaily.adapter.AdapterItemClickListener;
+import com.dyman.zhihudaily.adapter.listener.AdapterItemClickListener;
 import com.dyman.zhihudaily.adapter.HomePageAdapter;
 import com.dyman.zhihudaily.base.BaseFragment;
+import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.NewsLatestInfo;
+import com.dyman.zhihudaily.module.news.NewsDetailActivity;
 import com.dyman.zhihudaily.network.RetrofitHelper;
 import com.dyman.zhihudaily.utils.SnackbarUtil;
 import com.dyman.zhihudaily.utils.ToastUtil;
@@ -44,6 +47,8 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     private RecyclerView mRecyclerView;
 
     private HomePageAdapter adapter;
+
+    private NewsLatestInfo newsInfo;
 
     private Handler mHandler = new Handler(){
         @Override
@@ -137,8 +142,9 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
                                public void onNext(NewsLatestInfo newsLatestInfo) {
                                    mSwipeRefreshLayout.setRefreshing(false);
                                    ToastUtil.ShortToast("数据加载成功");
-                                   updateConvenientBanner(newsLatestInfo.getTop_stories());
-                                   adapter.updateAdapter(newsLatestInfo.getStories());
+                                   newsInfo = newsLatestInfo;
+                                   updateConvenientBanner(newsInfo.getTop_stories());
+                                   adapter.updateAdapter(newsInfo.getStories());
                                    adapter.notifyDataSetChanged();
                                }
                            }
@@ -173,6 +179,9 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     @Override
     public void onAdapterItemClick(int position) {
         SnackbarUtil.showMessage(mRecyclerView, "点击了第" + position + "个");
+        Intent it = new Intent(getSupportActivity(), NewsDetailActivity.class);
+        it.putExtra(IntentKeys.NEWS_ID, newsInfo.getStories().get(position).getId());
+        getSupportActivity().startActivity(it);
     }
 
 
