@@ -37,6 +37,6 @@
         </ScrollView>
     </FrameLayout>
 
-    <include layout="@layout/layout_toolbar"/>
+    <include layout="@layout/layout_story_toolbar"/>
 
 </FrameLayout>

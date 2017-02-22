@@ -29,23 +29,20 @@ import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class NewsDetailActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, ViewTreeObserver
-        .OnScrollChangedListener{
+public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
+        .OnScrollChangedListener, View.OnClickListener{
 
     private static final String TAG = NewsDetailActivity.class.getSimpleName();
-
+    /** 新闻ID */
     private int newsID;
-
+    /** 新闻背景控件 */
     private MyImageTextLayout imageTextLayout;
-
     private ScrollView mScrollView;
-
     private WebView webView;
-
     private Toolbar toolbar;
-
+    /** ScrollView 下滑监听帮助类 */
     private ScrollPullDownHelper mScrollPullDownHelper;
-
+    /** 状态栏高度 */
     private float statusHeight = 0f;
 
 
@@ -62,12 +59,12 @@ public class NewsDetailActivity extends BaseActivity implements SwipeRefreshLayo
 
 
     private void initToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("文章详情");
+        toolbar = (Toolbar) findViewById(R.id.story_toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
         }
     }
 
@@ -77,6 +74,11 @@ public class NewsDetailActivity extends BaseActivity implements SwipeRefreshLayo
         // 初始化数据
         newsID = getIntent().getIntExtra(IntentKeys.NEWS_ID, 0);
         statusHeight = DisplayUtil.getStatusBarHeight(ZhiHuDailyApp.getInstance());
+        //  实例化Toolbar部件的监听
+        findViewById(R.id.share_iv_status).setOnClickListener(this);
+        findViewById(R.id.collect_iv_status).setOnClickListener(this);
+        findViewById(R.id.comment_iv_status).setOnClickListener(this);
+        findViewById(R.id.mark_iv_status).setOnClickListener(this);
         //  头部控件
         imageTextLayout = (MyImageTextLayout) findViewById(R.id.container_header_activity_news_detail);
         //  初始化 ScrollView 及其滑动监听
@@ -126,8 +128,21 @@ public class NewsDetailActivity extends BaseActivity implements SwipeRefreshLayo
 
 
     @Override
-    public void onRefresh() {
-//        loadData(String.valueOf(newsID));
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.share_iv_status:
+                ToastUtil.ShortToast("点击了分享");
+                break;
+            case R.id.collect_iv_status:
+
+                break;
+            case R.id.comment_iv_status:
+
+                break;
+            case R.id.mark_iv_status:
+
+                break;
+        }
     }
 
 
@@ -176,4 +191,6 @@ public class NewsDetailActivity extends BaseActivity implements SwipeRefreshLayo
 
 
     }
+
+
 }

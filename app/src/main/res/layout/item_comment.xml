@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/body_ll_item_comment"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:foreground="?android:selectableItemBackground"
+    android:padding="16dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/userImage_civ_item_comment"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/saber_wlop"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/userName_tv_item_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户名称"/>
+
+            <TextView
+                android:id="@+id/markNum_tv_item_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="点赞 0"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/commentInfo_tv_item_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="我是评论收到FILA就圣诞快乐附近会 啊时间的分类空就按我破防宫颈癌阿萨德减肥啦谁看见了"/>
+
+        <TextView
+            android:id="@+id/time_tv_item_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="02-22 07:23"/>
+    </LinearLayout>
+
+</LinearLayout>
