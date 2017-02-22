@@ -38,7 +38,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/commentInfo_tv_item_comment"
+            android:id="@+id/content_tv_item_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
