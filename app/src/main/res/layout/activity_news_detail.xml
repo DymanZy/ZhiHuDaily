@@ -5,6 +5,7 @@
     android:id="@+id/activity_news_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.dyman.zhihudaily.module.news.NewsDetailActivity">
 
     <FrameLayout

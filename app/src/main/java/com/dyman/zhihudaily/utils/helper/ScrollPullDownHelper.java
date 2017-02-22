@@ -1,12 +1,13 @@
-package com.dyman.zhihudaily.utils;
+package com.dyman.zhihudaily.utils.helper;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
 /**
+ *  下滑监测帮助类
+ *
  * Created by dyman on 2017/2/22.
  */
-
 public class ScrollPullDownHelper {
 
     private static final int PULLING_DOWN_TIME_MAX = 8;

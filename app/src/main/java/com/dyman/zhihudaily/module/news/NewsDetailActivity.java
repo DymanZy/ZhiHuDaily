@@ -15,10 +15,13 @@ import android.webkit.WebView;
 import android.widget.ScrollView;
 
 import com.dyman.zhihudaily.R;
+import com.dyman.zhihudaily.ZhiHuDailyApp;
+import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.NewsDetailInfo;
 import com.dyman.zhihudaily.network.RetrofitHelper;
-import com.dyman.zhihudaily.utils.ScrollPullDownHelper;
+import com.dyman.zhihudaily.utils.DisplayUtil;
+import com.dyman.zhihudaily.utils.helper.ScrollPullDownHelper;
 import com.dyman.zhihudaily.utils.ToastUtil;
 import com.dyman.zhihudaily.widget.MyImageTextLayout;
 
@@ -26,7 +29,8 @@ import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class NewsDetailActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, ViewTreeObserver.OnScrollChangedListener{
+public class NewsDetailActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, ViewTreeObserver
+        .OnScrollChangedListener{
 
     private static final String TAG = NewsDetailActivity.class.getSimpleName();
 
@@ -41,6 +45,8 @@ public class NewsDetailActivity extends AppCompatActivity implements SwipeRefres
     private Toolbar toolbar;
 
     private ScrollPullDownHelper mScrollPullDownHelper;
+
+    private float statusHeight = 0f;
 
 
     @Override
@@ -70,6 +76,7 @@ public class NewsDetailActivity extends AppCompatActivity implements SwipeRefres
 
         // 初始化数据
         newsID = getIntent().getIntExtra(IntentKeys.NEWS_ID, 0);
+        statusHeight = DisplayUtil.getStatusBarHeight(ZhiHuDailyApp.getInstance());
         //  头部控件
         imageTextLayout = (MyImageTextLayout) findViewById(R.id.container_header_activity_news_detail);
         //  初始化 ScrollView 及其滑动监听
@@ -156,12 +163,13 @@ public class NewsDetailActivity extends AppCompatActivity implements SwipeRefres
         toolbar.setAlpha(1-ratio);
         Log.i(TAG, "onScrollChanged: ratio="+ratio);
         if (scrollY <= contentHeight) {
-            toolbar.setY(0f);
+
+            toolbar.setY(statusHeight);
             return;
         }
 
         boolean isPullingDown = mScrollPullDownHelper.onScrollChange(scrollY);
-        float toolBarPositionY = isPullingDown ? 0 : (contentHeight - scrollY);
+        float toolBarPositionY = isPullingDown ? statusHeight : (contentHeight - scrollY);
         toolbar.setY(toolBarPositionY);
         toolbar.setAlpha(1f);
 

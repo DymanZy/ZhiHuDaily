@@ -1,4 +1,4 @@
-package com.dyman.zhihudaily.utils;
+package com.dyman.zhihudaily.utils.helper;
 
 /**
  *  主题切换帮助类

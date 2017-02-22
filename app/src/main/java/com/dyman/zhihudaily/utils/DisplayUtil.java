@@ -1,7 +1,10 @@
 package com.dyman.zhihudaily.utils;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.util.DisplayMetrics;
+
+import java.lang.reflect.Field;
 
 /**
  *  屏幕像素转换工具类
@@ -60,5 +63,25 @@ public class DisplayUtil {
         return context.getResources().getDisplayMetrics().density;
     }
 
+
+    public static float getStatusBarHeight(Context context) {
+
+        Class<?> c = null;
+        Object obj = null;
+        Field field = null;
+        int x = 0, sbar = 0;
+
+        try {
+            c = Class.forName("com.android.internal.R$dimen");
+            obj = c.newInstance();
+            field = c.getField("status_bar_height");
+            x = Integer.parseInt(field.get(obj).toString());
+            sbar = context.getResources().getDimensionPixelSize(x);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return (float) sbar;
+    }
 
 }
