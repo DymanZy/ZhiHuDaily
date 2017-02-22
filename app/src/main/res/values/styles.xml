@@ -17,4 +17,9 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="PopupMeun" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">@color/style_window_background</item>
+        <item name="android:textColor">@color/menu_text_color</item>
+    </style>
+
 </resources>

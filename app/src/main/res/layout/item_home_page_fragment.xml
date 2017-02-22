@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="?android:selectableItemBackground"
+    android:layout_marginBottom="10dp"
     app:contentPadding="15dp"
     app:cardBackgroundColor="@color/white">
 
@@ -19,7 +20,8 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/imageStory_iv_item_home_page"
             android:maxLines="2"
-            android:text="文章题目......"/>
+            android:text="文章题目......"
+            android:textColor="@color/black"/>
 
         <ImageView
             android:id="@+id/imageStory_iv_item_home_page"
