@@ -3,9 +3,7 @@ package com.dyman.zhihudaily.module.news;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -14,12 +12,15 @@ import android.view.ViewTreeObserver;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.ZhiHuDailyApp;
 import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.NewsDetailInfo;
+import com.dyman.zhihudaily.entity.StoryExtraInfo;
 import com.dyman.zhihudaily.network.RetrofitHelper;
 import com.dyman.zhihudaily.utils.DisplayUtil;
 import com.dyman.zhihudaily.utils.WebUtils;
@@ -42,6 +43,8 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
     private ScrollView mScrollView;
     private WebView webView;
     private Toolbar toolbar;
+    private TextView markNumTv;
+    private TextView commentNumTv;
     /** ScrollView 下滑监听帮助类 */
     private ScrollPullDownHelper mScrollPullDownHelper;
     /** 状态栏高度 */
@@ -81,6 +84,8 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
         findViewById(R.id.collect_iv_status).setOnClickListener(this);
         findViewById(R.id.comment_iv_status).setOnClickListener(this);
         findViewById(R.id.mark_iv_status).setOnClickListener(this);
+        markNumTv = (TextView) findViewById(R.id.markNum_tv_layout_story_toolbar);
+        commentNumTv = (TextView) findViewById(R.id.commentNum_tv_layout_story_toolbar);
         //  头部控件
         imageTextLayout = (MyImageTextLayout) findViewById(R.id.container_header_activity_news_detail);
         //  初始化 ScrollView 及其滑动监听
@@ -115,15 +120,60 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
                     }
 
                     @Override
-                    public void onNext(NewsDetailInfo newsDetailInfo) {
+                    public void onNext(NewsDetailInfo info) {
                         // TODO: update UI
-                        showHtml(newsDetailInfo);
+                        showHtml(info);
+                        bindHeaderViewData(info.getTitle(), info.getImage(), info.getImage_source());
+                    }
+                });
+
+        RetrofitHelper.getZhiHuAPI()
+                .getStoryExtra(newsID)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<StoryExtraInfo>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.i(TAG, "-------加载文章额外信息完成-------");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtil.ShortToast("无法获取文章额外数据");
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onNext(StoryExtraInfo storyExtraInfo) {
+                        markNumTv.setText(String.valueOf(storyExtraInfo.getPopularity()));
+                        commentNumTv.setText(String.valueOf(storyExtraInfo.getComments()));
                     }
                 });
     }
 
+    /**
+     *  绑定头部展示的图片数据
+     * @param title
+     * @param imageUrl
+     * @param imageSource
+     */
+    private void bindHeaderViewData(String title, String imageUrl, String imageSource) {
+        Log.i(TAG, "----------------bindHeaderViewData is called");
+        imageTextLayout.setTitle(title);
+        Glide.with(ZhiHuDailyApp.getInstance())
+                .load(imageUrl)
+                .centerCrop()
+                .into(imageTextLayout.getImageView());
+        imageTextLayout.setImageSourceInfo(imageSource);
+    }
 
+
+    /**
+     *  显示html
+     * @param newsDetailInfo
+     */
     private void showHtml(NewsDetailInfo newsDetailInfo) {
+        Log.i(TAG, "----------------showHtml is called");
         String data = WebUtils.buildHtmlWithCss(newsDetailInfo.getBody(), newsDetailInfo.getCss(), false);
         webView.loadDataWithBaseURL(WebUtils.BASE_URL, data, WebUtils.MIME_TYPE, WebUtils.ENCODING, WebUtils.FAIL_URL);
     }
@@ -191,9 +241,6 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
         float toolBarPositionY = isPullingDown ? statusHeight : (contentHeight - scrollY);
         toolbar.setY(toolBarPositionY);
         toolbar.setAlpha(1f);
-
-
-
     }
 
 

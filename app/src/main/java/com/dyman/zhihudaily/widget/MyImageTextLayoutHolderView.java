@@ -31,6 +31,6 @@ public class MyImageTextLayoutHolderView implements Holder<NewsLatestInfo.TopSto
         Glide.with(context)
             .load(topStoriesBean.getImage())
             .into(imageTextLayout.getImageView());
-        imageTextLayout.setText(topStoriesBean.getTitle());
+        imageTextLayout.setTitle(topStoriesBean.getTitle());
     }
 }

@@ -10,6 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
+ *  使用:
+ *      recycleView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+ *
  * Created by man_dzy on 2016/5/13.
  */
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {

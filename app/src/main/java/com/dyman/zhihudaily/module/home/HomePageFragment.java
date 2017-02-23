@@ -8,9 +8,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.ZhiHuDailyApp;
 import com.dyman.zhihudaily.adapter.listener.AdapterItemClickListener;
@@ -34,7 +36,8 @@ import rx.schedulers.Schedulers;
  * Created by dyman on 2017/2/20.
  */
 
-public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, AdapterItemClickListener{
+public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, AdapterItemClickListener,
+        OnItemClickListener{
 
     private static final String TAG = HomePageFragment.class.getSimpleName();
 
@@ -105,6 +108,8 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         mSwipeRefreshLayout.setOnRefreshListener(this);
         //  设置轮循菜单
         mConvenientBanner = (ConvenientBanner) getSupportActivity().findViewById(R.id.convenientBanner_fragment_home);
+        mConvenientBanner.setOnItemClickListener(this);
+
         //  实例化HomePageAdapter
         adapter = new HomePageAdapter(ZhiHuDailyApp.getInstance());
         adapter.setAdapterListener(this);
@@ -172,16 +177,30 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     }
 
 
+    private void intentToDetail(int newID) {
+        Intent it = new Intent(getSupportActivity(), NewsDetailActivity.class);
+        it.putExtra(IntentKeys.NEWS_ID, newID);
+        getSupportActivity().startActivity(it);
+    }
+
+
     /**
-     *  adapter的点击响应处理
+     *  adapter的item点击响应处理
      * @param position
      */
     @Override
     public void onAdapterItemClick(int position) {
-        SnackbarUtil.showMessage(mRecyclerView, "点击了第" + position + "个");
-        Intent it = new Intent(getSupportActivity(), NewsDetailActivity.class);
-        it.putExtra(IntentKeys.NEWS_ID, newsInfo.getStories().get(position).getId());
-        getSupportActivity().startActivity(it);
+        intentToDetail(newsInfo.getStories().get(position).getId());
+    }
+
+
+    /**
+     *  convenientBanner的item点击响应
+     * @param position
+     */
+    @Override
+    public void onItemClick(int position) {
+        intentToDetail(newsInfo.getTop_stories().get(position).getId());
     }
 
 
@@ -203,5 +222,4 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         //  停止翻页
         mConvenientBanner.stopTurning();
     }
-
 }

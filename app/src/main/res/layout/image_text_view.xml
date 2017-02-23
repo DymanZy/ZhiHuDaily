@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/body_image_text_view"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="@dimen/view_header_story_height">
 
     <ImageView
         android:id="@+id/mask"
@@ -18,16 +18,30 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/saber"/>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_header_img_story_height"
+        android:layout_below="@+id/mask"
+        android:src="@drawable/mask"/>
+
     <TextView
         android:id="@+id/title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
-        android:layout_below="@+id/mask"
-        android:padding="20dp"
+        android:layout_alignParentBottom="true"
+        android:padding="30dp"
         android:text="我是标题"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textColor="@color/background_gray"/>
+
+    <TextView
+        android:id="@+id/imageSource_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/text_image_source"/>
 
 </RelativeLayout>

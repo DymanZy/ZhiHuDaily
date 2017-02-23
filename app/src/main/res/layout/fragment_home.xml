@@ -16,6 +16,8 @@
             android:orientation="vertical">
             <com.bigkoo.convenientbanner.ConvenientBanner
                 android:id="@+id/convenientBanner_fragment_home"
+                android:clickable="true"
+                android:focusable="true"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/view_header_story_height"
                 app:canLoop="true"/>

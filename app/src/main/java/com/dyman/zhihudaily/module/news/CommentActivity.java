@@ -40,6 +40,9 @@ public class CommentActivity extends BaseActivity {
 
     private int newID;
 
+    private int sCommentNum = 0;
+    private int lCommentNum = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +59,7 @@ public class CommentActivity extends BaseActivity {
     private void initToolbar() {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("xx条点评");
+        toolbar.setTitle("0条点评");
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -123,6 +126,8 @@ public class CommentActivity extends BaseActivity {
                     @Override
                     public void onNext(CommentsInfo commentsInfo) {
                         longCAdapter.updateAdapter(commentsInfo.getComments());
+                        lCommentNum = commentsInfo.getComments().size();
+                        updateActionbar();
                     }
                 });
 
@@ -145,8 +150,18 @@ public class CommentActivity extends BaseActivity {
                     @Override
                     public void onNext(CommentsInfo commentsInfo) {
                         shortCAdapter.updateAdapter(commentsInfo.getComments());
+                        sCommentNum = commentsInfo.getComments().size();
+                        updateActionbar();
                     }
                 });
+    }
+
+    /**
+     *  更新 Actionbar显示的数据
+     */
+    private void updateActionbar() {
+
+        getSupportActionBar().setTitle((lCommentNum+sCommentNum) + "条点评");
     }
 
 

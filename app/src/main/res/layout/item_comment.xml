@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="?android:selectableItemBackground"
+    android:clickable="true"
     android:theme="@style/PopupMenu"
     android:padding="16dp">
 
@@ -47,10 +48,32 @@
             android:text="我是评论收到FILA就圣诞快乐附近会 啊时间的分类空就按我破防宫颈癌阿萨德减肥啦谁看见了"/>
 
         <TextView
-            android:id="@+id/time_tv_item_comment"
-            android:layout_width="wrap_content"
+            android:id="@+id/replyContent_tv_item_comment"
+            android:visibility="gone"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="02-22 07:23"/>
+            android:text="//哈哈哈 : 而我居然太快了西坡偏偏 为楼梯间 [普斯分开打上开发拉我金额按房间空气进入情侣空间拉风"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:id="@+id/time_tv_item_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="02-22 07:23"/>
+            <Button
+                android:id="@+id/spreadContent_btn_item_comment"
+                android:visibility="gone"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="展开"/>
+        </RelativeLayout>
+
     </LinearLayout>
 
 </LinearLayout>

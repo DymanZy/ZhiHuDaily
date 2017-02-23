@@ -22,7 +22,7 @@ public class MyImageTextLayout extends RelativeLayout {
     private RelativeLayout mRelativeLayout;
     private ImageView mImgView;
     private TextView mTextView;
-    private Context mContext;
+    private TextView mImgSourceTv;
 
     public MyImageTextLayout(Context context) {
         this(context, null);
@@ -31,10 +31,10 @@ public class MyImageTextLayout extends RelativeLayout {
     public MyImageTextLayout(Context context, AttributeSet attrs) {
         super(context, attrs, 0);
         LayoutInflater.from(context).inflate(R.layout.image_text_view, this, true);
-        mContext = context;
         mRelativeLayout = (RelativeLayout) findViewById(R.id.body_image_text_view);
         mImgView = (ImageView) findViewById(R.id.image_iv);
         mTextView = (TextView) findViewById(R.id.title_tv);
+        mImgSourceTv = (TextView) findViewById(R.id.imageSource_tv);
 
         mImgView.setScaleType(ImageView.ScaleType.CENTER_CROP);
     }
@@ -45,13 +45,18 @@ public class MyImageTextLayout extends RelativeLayout {
     }
 
     /** 设置文字接口 */
-    public void setText(String str) {
+    public void setTitle(String str) {
         mTextView.setText(str);
     }
 
     /** 设置文字大小 */
     public void setTextSize(float size) {
         mTextView.setTextSize(size);
+    }
+
+    /** 设置图片版权信息 */
+    public void setImageSourceInfo(String imageSource) {
+        mImgSourceTv.setText(imageSource);
     }
 
     /** 设置点击接口 */

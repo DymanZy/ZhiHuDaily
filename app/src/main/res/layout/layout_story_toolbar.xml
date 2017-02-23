@@ -44,6 +44,7 @@
             android:layout_marginTop="3dp"
             android:src="@mipmap/ic_comment_status"/>
         <TextView
+            android:id="@+id/commentNum_tv_layout_story_toolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -59,6 +60,7 @@
             android:layout_marginBottom="3dp"
             android:src="@mipmap/ic_mark"/>
         <TextView
+            android:id="@+id/markNum_tv_layout_story_toolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
