@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.ZhiHuDailyApp;
@@ -48,7 +49,6 @@ public class CommentActivity extends BaseActivity {
         initToolbar();
         initView();
         initData();
-
         loadData();
     }
 
@@ -71,10 +71,9 @@ public class CommentActivity extends BaseActivity {
         shortCAdapter = new CommentAdapter(ZhiHuDailyApp.getInstance());
 
         longCommentRv = (RecyclerView) findViewById(R.id.longComment_rv_activity_comment);
-        longCommentRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        longCommentRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         longCommentRv.setItemAnimator(new DefaultItemAnimator());
-        longCommentRv.addItemDecoration(new DividerItemDecoration(ZhiHuDailyApp.getInstance(),
-                DividerItemDecoration.HORIZONTAL_LIST));
+        longCommentRv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         longCommentRv.setAdapter(longCAdapter);
         longCAdapter.setAdapterItemClickListener(new AdapterItemClickListener() {
             @Override
@@ -84,15 +83,14 @@ public class CommentActivity extends BaseActivity {
         });
 
         shortCommentRv = (RecyclerView) findViewById(R.id.shortComment_rv_activity_comment);
-        shortCommentRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        shortCommentRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         shortCommentRv.setItemAnimator(new DefaultItemAnimator());
-        shortCommentRv.addItemDecoration(new DividerItemDecoration(ZhiHuDailyApp.getInstance(),
-                DividerItemDecoration.HORIZONTAL_LIST));
+        shortCommentRv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         shortCommentRv.setAdapter(shortCAdapter);
         shortCAdapter.setAdapterItemClickListener(new AdapterItemClickListener() {
             @Override
             public void onAdapterItemClick(int position) {
-                ToastUtil.ShortToast("点击了长评论 第"+position+"个");
+                ToastUtil.ShortToast("点击了短评论 第"+position+"个");
             }
         });
     }
@@ -150,4 +148,18 @@ public class CommentActivity extends BaseActivity {
                     }
                 });
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

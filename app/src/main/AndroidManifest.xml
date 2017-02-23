@@ -27,7 +27,9 @@
             android:name=".module.news.NewsDetailActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".module.news.CommentActivity">
+        <activity
+            android:name=".module.news.CommentActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

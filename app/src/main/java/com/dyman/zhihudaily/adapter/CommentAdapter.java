@@ -52,7 +52,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
 
         Glide.with(context).load(commentsBean.getAvatar()).into(holder.circleImageView);
         holder.userNameTv.setText(commentsBean.getAuthor());
-        holder.markNumsTv.setText(commentsBean.getLikes());
+        holder.markNumsTv.setText(String.valueOf(commentsBean.getLikes()));
         holder.contentTv.setText(commentsBean.getContent());
         holder.timeTv.setText(TimeUtil.parseDateTime(commentsBean.getTime()));
 

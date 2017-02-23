@@ -4,8 +4,9 @@
     android:id="@+id/body_ll_item_comment"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:foreground="?android:selectableItemBackground"
+    android:theme="@style/PopupMenu"
     android:padding="16dp">
 
     <de.hdodenhof.circleimageview.CircleImageView

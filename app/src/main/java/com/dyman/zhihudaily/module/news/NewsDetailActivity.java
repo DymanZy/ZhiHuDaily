@@ -1,5 +1,6 @@
 package com.dyman.zhihudaily.module.news;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -21,6 +22,7 @@ import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.NewsDetailInfo;
 import com.dyman.zhihudaily.network.RetrofitHelper;
 import com.dyman.zhihudaily.utils.DisplayUtil;
+import com.dyman.zhihudaily.utils.WebUtils;
 import com.dyman.zhihudaily.utils.helper.ScrollPullDownHelper;
 import com.dyman.zhihudaily.utils.ToastUtil;
 import com.dyman.zhihudaily.widget.MyImageTextLayout;
@@ -89,13 +91,13 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
         webView = (WebView) findViewById(R.id.webView_activity_news_detail);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.getSettings().setJavaScriptEnabled(true);// 设置支持JavaScript
-        webView.loadUrl("https://www.baidu.com/");
 
-//        loadData(String.valueOf(newsID));
+        loadData(String.valueOf(newsID));
     }
 
 
     private void loadData(String newsID) {
+        Log.i(TAG, "-----------loadData: newID=" + newsID);
         RetrofitHelper.getZhiHuAPI()
                 .getNewsDetail(newsID)
                 .subscribeOn(Schedulers.io())
@@ -115,15 +117,15 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
                     @Override
                     public void onNext(NewsDetailInfo newsDetailInfo) {
                         // TODO: update UI
-                        showHtml(newsDetailInfo.getBody());
+                        showHtml(newsDetailInfo);
                     }
                 });
     }
 
 
-    private void showHtml(String html) {
-        Log.i(TAG, "showHtml: " + html);
-        webView.loadDataWithBaseURL(null, html,"text/html", "utf-8", null);
+    private void showHtml(NewsDetailInfo newsDetailInfo) {
+        String data = WebUtils.buildHtmlWithCss(newsDetailInfo.getBody(), newsDetailInfo.getCss(), false);
+        webView.loadDataWithBaseURL(WebUtils.BASE_URL, data, WebUtils.MIME_TYPE, WebUtils.ENCODING, WebUtils.FAIL_URL);
     }
 
 
@@ -137,7 +139,9 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
 
                 break;
             case R.id.comment_iv_status:
-
+                Intent it = new Intent(NewsDetailActivity.this, CommentActivity.class);
+                it.putExtra(IntentKeys.NEWS_ID, newsID);
+                startActivity(it);
                 break;
             case R.id.mark_iv_status:
 
