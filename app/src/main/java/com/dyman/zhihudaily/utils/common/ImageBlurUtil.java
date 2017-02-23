@@ -1,4 +1,4 @@
-package com.dyman.zhihudaily.utils;
+package com.dyman.zhihudaily.utils.common;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/agree_dialog_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:clickable="true"
+        android:foreground="?android:selectableItemBackground"
+        android:textColor="@color/black"
+        android:text="赞同"/>
+    <TextView
+        android:id="@+id/report_dialog_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:foreground="?android:selectableItemBackground"
+        android:padding="15dp"
+        android:textColor="@color/black"
+        android:text="举报"/>
+    <TextView
+        android:id="@+id/copy_dialog_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:clickable="true"
+        android:foreground="?android:selectableItemBackground"
+        android:textColor="@color/black"
+        android:text="复制"/>
+    <TextView
+        android:id="@+id/reply_dialog_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:clickable="true"
+        android:foreground="?android:selectableItemBackground"
+        android:textColor="@color/black"
+        android:text="回复"/>
+
+</LinearLayout>

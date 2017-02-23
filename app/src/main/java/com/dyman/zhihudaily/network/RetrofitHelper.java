@@ -5,7 +5,7 @@ import android.util.Log;
 import com.dyman.zhihudaily.ZhiHuDailyApp;
 import com.dyman.zhihudaily.network.api.ZhiHuAppService;
 import com.dyman.zhihudaily.network.auxiliary.ApiConstants;
-import com.dyman.zhihudaily.utils.CommonUtil;
+import com.dyman.zhihudaily.utils.common.CommonUtil;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.io.File;

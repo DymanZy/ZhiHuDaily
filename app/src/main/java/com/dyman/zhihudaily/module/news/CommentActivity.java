@@ -7,7 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.ZhiHuDailyApp;
@@ -17,8 +19,9 @@ import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.CommentsInfo;
 import com.dyman.zhihudaily.network.RetrofitHelper;
-import com.dyman.zhihudaily.utils.DividerItemDecoration;
-import com.dyman.zhihudaily.utils.ToastUtil;
+import com.dyman.zhihudaily.utils.DialogUtils;
+import com.dyman.zhihudaily.utils.common.DividerItemDecoration;
+import com.dyman.zhihudaily.utils.common.ToastUtil;
 
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -81,7 +84,8 @@ public class CommentActivity extends BaseActivity {
         longCAdapter.setAdapterItemClickListener(new AdapterItemClickListener() {
             @Override
             public void onAdapterItemClick(int position) {
-                ToastUtil.ShortToast("点击了长评论 第"+position+"个");
+                DialogUtils.showCommentDialog(CommentActivity.this,
+                        new MyOnClickListener(longCAdapter.getItem(position).getId()));
             }
         });
 
@@ -93,7 +97,8 @@ public class CommentActivity extends BaseActivity {
         shortCAdapter.setAdapterItemClickListener(new AdapterItemClickListener() {
             @Override
             public void onAdapterItemClick(int position) {
-                ToastUtil.ShortToast("点击了短评论 第"+position+"个");
+                DialogUtils.showCommentDialog(CommentActivity.this,
+                        new MyOnClickListener(shortCAdapter.getItem(position).getId()));
             }
         });
     }
@@ -164,6 +169,12 @@ public class CommentActivity extends BaseActivity {
         getSupportActionBar().setTitle((lCommentNum+sCommentNum) + "条点评");
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_comment, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -172,9 +183,43 @@ public class CommentActivity extends BaseActivity {
             case android.R.id.home:
                 onBackPressed();
                 break;
+            case R.id.action_edit_comment:
+                ToastUtil.ShortToast("编写评论");
+                break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    /**
+     *  点击评论的处理监听
+     */
+    private class MyOnClickListener implements View.OnClickListener {
+
+        private int commentID;
+
+        public MyOnClickListener(int commentID) {
+            this.commentID = commentID;
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.agree_dialog_comment:
+                    ToastUtil.ShortToast("赞成了ID为"+commentID+"的评论");
+                    break;
+                case R.id.report_dialog_comment:
+                    ToastUtil.ShortToast("举报了ID为"+commentID+"的评论");
+                    break;
+                case R.id.copy_dialog_comment:
+                    ToastUtil.ShortToast("复制了ID为"+commentID+"的评论");
+                    break;
+                case R.id.reply_dialog_comment:
+                    ToastUtil.ShortToast("回复了ID为"+commentID+"的评论");
+                    break;
+            }
+        }
     }
 
 }

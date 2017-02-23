@@ -2,7 +2,6 @@ package com.dyman.zhihudaily.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +14,7 @@ import com.bumptech.glide.Glide;
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.adapter.listener.AdapterItemClickListener;
 import com.dyman.zhihudaily.entity.CommentsInfo;
-import com.dyman.zhihudaily.module.news.CommentActivity;
-import com.dyman.zhihudaily.utils.TimeUtil;
+import com.dyman.zhihudaily.utils.common.TimeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +93,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     @Override
     public int getItemCount() {
         return datas.size();
+    }
+
+
+    public CommentsInfo.CommentsBean getItem(int position) {
+        return datas.get(position);
     }
 
 

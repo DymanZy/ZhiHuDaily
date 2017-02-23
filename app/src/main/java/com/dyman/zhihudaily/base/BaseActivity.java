@@ -3,13 +3,12 @@ package com.dyman.zhihudaily.base;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.dyman.zhihudaily.R;
-import com.dyman.zhihudaily.utils.SystemBarTintUtil;
+import com.dyman.zhihudaily.utils.common.SystemBarTintUtil;
 
 /**
  * Created by dyman on 2017/2/20.

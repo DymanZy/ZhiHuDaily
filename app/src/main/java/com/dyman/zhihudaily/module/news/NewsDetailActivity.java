@@ -22,10 +22,10 @@ import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.NewsDetailInfo;
 import com.dyman.zhihudaily.entity.StoryExtraInfo;
 import com.dyman.zhihudaily.network.RetrofitHelper;
-import com.dyman.zhihudaily.utils.DisplayUtil;
-import com.dyman.zhihudaily.utils.WebUtils;
+import com.dyman.zhihudaily.utils.common.DisplayUtil;
+import com.dyman.zhihudaily.utils.common.WebUtils;
 import com.dyman.zhihudaily.utils.helper.ScrollPullDownHelper;
-import com.dyman.zhihudaily.utils.ToastUtil;
+import com.dyman.zhihudaily.utils.common.ToastUtil;
 import com.dyman.zhihudaily.widget.MyImageTextLayout;
 
 import rx.Observer;

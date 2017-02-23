@@ -30,7 +30,7 @@ public class MyImageTextLayout extends RelativeLayout {
 
     public MyImageTextLayout(Context context, AttributeSet attrs) {
         super(context, attrs, 0);
-        LayoutInflater.from(context).inflate(R.layout.image_text_view, this, true);
+        LayoutInflater.from(context).inflate(R.layout.view_image_text, this, true);
         mRelativeLayout = (RelativeLayout) findViewById(R.id.body_image_text_view);
         mImgView = (ImageView) findViewById(R.id.image_iv);
         mTextView = (TextView) findViewById(R.id.title_tv);
@@ -64,6 +64,7 @@ public class MyImageTextLayout extends RelativeLayout {
         mRelativeLayout.setOnClickListener(listener);
     }
 
+    /** 返回 ImageView 方便网络加载图片 */
     public ImageView getImageView() {return mImgView;}
 
 }

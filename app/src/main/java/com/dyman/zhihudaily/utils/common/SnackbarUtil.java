@@ -1,4 +1,4 @@
-package com.dyman.zhihudaily.utils;
+package com.dyman.zhihudaily.utils.common;
 
 import android.support.design.widget.Snackbar;
 import android.view.View;

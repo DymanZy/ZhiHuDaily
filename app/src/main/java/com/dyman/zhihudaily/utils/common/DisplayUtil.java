@@ -1,4 +1,4 @@
-package com.dyman.zhihudaily.utils;
+package com.dyman.zhihudaily.utils.common;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;

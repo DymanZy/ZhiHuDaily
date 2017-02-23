@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -17,7 +16,7 @@ import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.module.home.HomePageFragment;
 import com.dyman.zhihudaily.module.news.NewsDetailActivity;
-import com.dyman.zhihudaily.utils.ToastUtil;
+import com.dyman.zhihudaily.utils.common.ToastUtil;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {

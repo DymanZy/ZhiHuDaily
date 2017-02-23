@@ -8,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
@@ -22,8 +21,7 @@ import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.NewsLatestInfo;
 import com.dyman.zhihudaily.module.news.NewsDetailActivity;
 import com.dyman.zhihudaily.network.RetrofitHelper;
-import com.dyman.zhihudaily.utils.SnackbarUtil;
-import com.dyman.zhihudaily.utils.ToastUtil;
+import com.dyman.zhihudaily.utils.common.ToastUtil;
 import com.dyman.zhihudaily.widget.MyImageTextLayoutHolderView;
 
 import java.util.List;
