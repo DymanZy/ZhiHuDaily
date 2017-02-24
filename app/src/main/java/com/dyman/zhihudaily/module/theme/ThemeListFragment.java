@@ -23,6 +23,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
+ *  主题类型列表
+ *
  * Created by dyman on 2017/2/24.
  */
 

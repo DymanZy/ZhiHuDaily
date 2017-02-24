@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.dyman.zhihudaily.module.news.NewsDetailActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.dyman.zhihudaily.widget.MyImageTextLayout
+            android:id="@+id/container_header_activity_theme_story"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.dyman.zhihudaily.widget.MyImageTextLayout>
+
+        <ScrollView
+            android:id="@+id/scrollView_activity_theme_story"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <View
+                    android:id="@+id/maskHeaderView_activity_theme_story"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_header_story_height"/>
+                <View
+                    android:id="@+id/maskToolbarView_activity_theme_story"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_header_mask_story_height"/>
+                <WebView
+                    android:id="@+id/webView_activity_theme_story"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+        </ScrollView>
+    </FrameLayout>
+
+    <include layout="@layout/layout_story_toolbar"/>
+
+</FrameLayout>

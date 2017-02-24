@@ -50,7 +50,7 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.MyViewHo
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.title.setText(storiesBeanList.get(position).getTitle());
-        // TODO: 完善图片判空处理
+        // TODO: 待完善--图片判空处理
         if (storiesBeanList.get(position).getImages() != null) {
             Glide.with(context)
                 .load(storiesBeanList.get(position).getImages().get(0))
@@ -64,6 +64,11 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.MyViewHo
     @Override
     public int getItemCount() {
         return storiesBeanList.size();
+    }
+
+
+    public StoryBean getItem(int position) {
+        return storiesBeanList.get(position);
     }
 
 

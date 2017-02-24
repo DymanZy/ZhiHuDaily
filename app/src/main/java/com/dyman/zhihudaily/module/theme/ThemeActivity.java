@@ -1,6 +1,7 @@
 package com.dyman.zhihudaily.module.theme;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +25,12 @@ import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+/**
+ *  主题内容
+ *
+ *  @author dyman
+ *  @since 2017/2/24 19:49
+ */
 public class ThemeActivity extends BaseActivity implements AdapterItemClickListener{
 
     private static final String TAG = ThemeActivity.class.getSimpleName();
@@ -99,7 +106,11 @@ public class ThemeActivity extends BaseActivity implements AdapterItemClickListe
 
     @Override
     public void onAdapterItemClick(int position) {
-        //  TODO
+
+        int storyID = adapter.getItem(position).getId();
+        Intent it = new Intent(ThemeActivity.this, ThemeStoryActivity.class);
+        it.putExtra(IntentKeys.STORY_ID, storyID);
+        startActivity(it);
     }
 
     @Override

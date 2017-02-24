@@ -14,6 +14,7 @@ import com.dyman.zhihudaily.entity.SplashInfo;
 import com.dyman.zhihudaily.entity.StoryExtraInfo;
 import com.dyman.zhihudaily.entity.ThemeInfo;
 import com.dyman.zhihudaily.entity.ThemeListInfo;
+import com.dyman.zhihudaily.entity.ThemeStoryInfo;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -102,6 +103,14 @@ public interface ZhiHuAppService {
      */
     @GET("api/4/theme/{theme_id}")
     Observable<ThemeInfo> getThemeInfo(@Path("theme_id") String theme_id);
+
+    /**
+     *  获取消息具体内容
+     * @param story_id 消息对应ID
+     * @return
+     */
+    @GET("api/4/news/{story_id}")
+    Observable<ThemeStoryInfo> getThemeStoryInfo(@Path("story_id") String story_id);
 
     /**
      *  获取热门信息

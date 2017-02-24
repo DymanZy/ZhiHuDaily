@@ -1,9 +1,10 @@
-package com.dyman.zhihudaily.module.news;
+package com.dyman.zhihudaily.module.theme;
 
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -21,26 +22,36 @@ import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.NewsDetailInfo;
 import com.dyman.zhihudaily.entity.StoryExtraInfo;
+import com.dyman.zhihudaily.entity.ThemeStoryInfo;
+import com.dyman.zhihudaily.module.news.CommentActivity;
+import com.dyman.zhihudaily.module.news.NewsDetailActivity;
 import com.dyman.zhihudaily.network.RetrofitHelper;
 import com.dyman.zhihudaily.utils.common.DisplayUtil;
+import com.dyman.zhihudaily.utils.common.ToastUtil;
 import com.dyman.zhihudaily.utils.common.WebUtils;
 import com.dyman.zhihudaily.utils.helper.ScrollPullDownHelper;
-import com.dyman.zhihudaily.utils.common.ToastUtil;
 import com.dyman.zhihudaily.widget.MyImageTextLayout;
 
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
-        .OnScrollChangedListener, View.OnClickListener{
+/**
+ *  主题文章内容
+ *
+ *  @author dyman
+ *  @since 2017/2/24 19:51
+ */
+public class ThemeStoryActivity extends BaseActivity implements View.OnClickListener, ViewTreeObserver.OnScrollChangedListener{
 
-    private static final String TAG = NewsDetailActivity.class.getSimpleName();
-    /** 新闻ID */
-    private int newsID;
+    private static final String TAG = ThemeStoryActivity.class.getSimpleName();
+
+    private int storyID;
     /** 新闻背景控件 */
     private MyImageTextLayout imageTextLayout;
     private ScrollView mScrollView;
+    private View maskHeaderView;
+    private View maskToolbarView;
     private WebView webView;
     private Toolbar toolbar;
     private TextView markNumTv;
@@ -54,16 +65,17 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news_detail);
+        setContentView(R.layout.activity_theme_story);
 
         initToolbar();
         initData();
         initView();
-        loadData(String.valueOf(newsID));
+        loadData();
     }
 
 
     private void initToolbar() {
+
         toolbar = (Toolbar) findViewById(R.id.story_toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -76,8 +88,7 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
 
     private void initData() {
 
-        // 初始化数据
-        newsID = getIntent().getIntExtra(IntentKeys.NEWS_ID, 0);
+        storyID = getIntent().getIntExtra(IntentKeys.STORY_ID, 0);
         statusHeight = DisplayUtil.getStatusBarHeight(ZhiHuDailyApp.getInstance());
         // 实例化滑动监听帮助类
         mScrollPullDownHelper = new ScrollPullDownHelper();
@@ -86,7 +97,7 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
 
     private void initView() {
 
-        //  实例化Toolbar部件的监听
+        //  实例化 Toolbar 部件的监听
         findViewById(R.id.share_iv_status).setOnClickListener(this);
         findViewById(R.id.collect_iv_status).setOnClickListener(this);
         findViewById(R.id.comment_iv_status).setOnClickListener(this);
@@ -94,54 +105,53 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
         markNumTv = (TextView) findViewById(R.id.markNum_tv_layout_story_toolbar);
         commentNumTv = (TextView) findViewById(R.id.commentNum_tv_layout_story_toolbar);
         //  头部控件
-        imageTextLayout = (MyImageTextLayout) findViewById(R.id.container_header_activity_news_detail);
+        imageTextLayout = (MyImageTextLayout) findViewById(R.id.container_header_activity_theme_story);
         imageTextLayout.isHideHeaderMask(false);
         //  初始化 ScrollView 及其滑动监听
-        mScrollView = (ScrollView) findViewById(R.id.scrollView_activity_news_detail);
-        mScrollView.setOverScrollMode(View.OVER_SCROLL_NEVER); //去掉滑动到底部的蓝色阴影
+        mScrollView = (ScrollView) findViewById(R.id.scrollView_activity_theme_story);
         mScrollView.getViewTreeObserver().addOnScrollChangedListener(this);
+        //  掩饰作用的View, 以填补HeaderView显示时的高度
+        maskHeaderView = findViewById(R.id.maskHeaderView_activity_theme_story);
+        maskToolbarView = findViewById(R.id.maskToolbarView_activity_theme_story);
         //  初始化网页显示控件
-        webView = (WebView) findViewById(R.id.webView_activity_news_detail);
+        webView = (WebView) findViewById(R.id.webView_activity_theme_story);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webView.getSettings().setJavaScriptEnabled(true);// 设置支持JavaScript
+        webView.getSettings().setJavaScriptEnabled(true);
     }
 
 
-    private void loadData(String newsID) {
+    private void loadData() {
 
-        Log.i(TAG, "-----------loadData: newID=" + newsID);
         RetrofitHelper.getZhiHuAPI()
-                .getNewsDetail(newsID)
+                .getThemeStoryInfo(String.valueOf(storyID))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<NewsDetailInfo>() {
+                .subscribe(new Observer<ThemeStoryInfo>() {
                     @Override
                     public void onCompleted() {
-                        Log.i(TAG, "-----加载文章数据完成-----");
+                        Log.i(TAG, "onCompleted: -----加载主题文章内容完成");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtil.ShortToast("加载数据失败");
                         e.printStackTrace();
                     }
 
                     @Override
-                    public void onNext(NewsDetailInfo info) {
-                        // TODO: update UI
-                        showHtml(info);
-                        bindHeaderViewData(info.getTitle(), info.getImage(), info.getImage_source());
+                    public void onNext(ThemeStoryInfo story) {
+                        showHtml(story);
+                        bindHeaderViewIfHas(story);
                     }
                 });
 
         RetrofitHelper.getZhiHuAPI()
-                .getStoryExtra(newsID)
+                .getStoryExtra(String.valueOf(storyID))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<StoryExtraInfo>() {
                     @Override
                     public void onCompleted() {
-                        Log.i(TAG, "-------加载文章额外信息完成-------");
+                        Log.i(TAG, "-------加载主题文章的额外信息完成-------");
                     }
 
                     @Override
@@ -156,38 +166,45 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
                         commentNumTv.setText(String.valueOf(storyExtraInfo.getComments()));
                     }
                 });
-    }
 
-    /**
-     *  绑定头部展示的图片数据
-     * @param title
-     * @param imageUrl
-     * @param imageSource
-     */
-    private void bindHeaderViewData(String title, String imageUrl, String imageSource) {
-        Log.i(TAG, "----------------bindHeaderViewData is called");
-        imageTextLayout.setTitle(title);
-        Glide.with(ZhiHuDailyApp.getInstance())
-                .load(imageUrl)
-                .centerCrop()
-                .into(imageTextLayout.getImageView());
-        imageTextLayout.setImageSourceInfo(imageSource);
     }
 
 
-    /**
-     *  显示html
-     * @param newsDetailInfo
-     */
-    private void showHtml(NewsDetailInfo newsDetailInfo) {
-        Log.i(TAG, "----------------showHtml is called");
-        String data = WebUtils.buildHtmlWithCss(newsDetailInfo.getBody(), newsDetailInfo.getCss(), false);
+    private void showHtml(ThemeStoryInfo story) {
+        String data = WebUtils.buildHtmlWithCss(story.getBody(), story.getCss(), false);
         webView.loadDataWithBaseURL(WebUtils.BASE_URL, data, WebUtils.MIME_TYPE, WebUtils.ENCODING, WebUtils.FAIL_URL);
     }
 
 
+    private void bindHeaderViewIfHas(ThemeStoryInfo story) {
+        if (story.hasHeaderImage()) {
+            imageTextLayout.setTitle(story.getTitle());
+            Glide.with(ZhiHuDailyApp.getInstance())
+                    .load(story.getImage())
+                    .centerCrop()
+                    .into(imageTextLayout.getImageView());
+            imageTextLayout.setImageSourceInfo(story.getImage_source());
+        } else {
+            imageTextLayout.setVisibility(View.GONE);
+            maskHeaderView.setVisibility(View.GONE);
+            maskToolbarView.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
             case R.id.share_iv_status:
                 ToastUtil.ShortToast("点击了分享");
@@ -196,8 +213,8 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
 
                 break;
             case R.id.comment_iv_status:
-                Intent it = new Intent(NewsDetailActivity.this, CommentActivity.class);
-                it.putExtra(IntentKeys.NEWS_ID, newsID);
+                Intent it = new Intent(ThemeStoryActivity.this, CommentActivity.class);
+                it.putExtra(IntentKeys.STORY_ID, storyID);
                 startActivity(it);
                 break;
             case R.id.mark_iv_status:
@@ -206,48 +223,38 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
         }
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @Override
     public void onScrollChanged() {
 
-        //  改变 HeaderView 的位置
+        // TODO: 改变 headerView的位置
         int scrollY = mScrollView.getScrollY();
         int headerScrollY = (scrollY > 0) ? (scrollY / 2) : 0;
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             imageTextLayout.setScrollY(headerScrollY);
-            imageTextLayout.requestLayout();//view 的位置改变,请求重新绘制
+            imageTextLayout.requestLayout();
         }
 
-        //  改变 Toolbar 的透明度和位置
-        int storyHeaderViewHeight = getResources().getDimensionPixelSize(R.dimen.view_header_story_height);
-        float toolbarHeight = toolbar.getHeight();
-        float contentHeight = storyHeaderViewHeight - toolbarHeight;
 
+        //  改变 Toolbar 的透明度和位置
+        int stroyHeaderViewHeight = getResources().getDimensionPixelSize(R.dimen.view_header_story_height);
+        float toolbarHeight = toolbar.getHeight();
+        float contentHeight = stroyHeaderViewHeight - toolbarHeight;
         float ratio = Math.min(scrollY / contentHeight, 1.0f);
-        toolbar.setAlpha(1-ratio);
-        if (scrollY <= contentHeight) {
+        toolbar.setAlpha(1 - ratio);
+        if (scrollY <= contentHeight) {// 未滑出置顶图片区域, 让toolbar继续显示
 
             toolbar.setY(statusHeight);
             return;
         }
-
+        //  下滑显示toolbar, 上滑隐藏toolbar
         boolean isPullingDown = mScrollPullDownHelper.onScrollChange(scrollY);
         float toolBarPositionY = isPullingDown ? statusHeight : (contentHeight - scrollY);
         toolbar.setY(toolBarPositionY);
         toolbar.setAlpha(1f);
+
+
+
+
+
     }
-
-
 }
