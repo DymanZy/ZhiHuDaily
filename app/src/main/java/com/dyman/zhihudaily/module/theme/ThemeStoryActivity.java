@@ -214,7 +214,7 @@ public class ThemeStoryActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.comment_iv_status:
                 Intent it = new Intent(ThemeStoryActivity.this, CommentActivity.class);
-                it.putExtra(IntentKeys.STORY_ID, storyID);
+                it.putExtra(IntentKeys.NEWS_ID, storyID);
                 startActivity(it);
                 break;
             case R.id.mark_iv_status:
@@ -222,6 +222,7 @@ public class ThemeStoryActivity extends BaseActivity implements View.OnClickList
                 break;
         }
     }
+
 
     @Override
     public void onScrollChanged() {
@@ -251,10 +252,6 @@ public class ThemeStoryActivity extends BaseActivity implements View.OnClickList
         float toolBarPositionY = isPullingDown ? statusHeight : (contentHeight - scrollY);
         toolbar.setY(toolBarPositionY);
         toolbar.setAlpha(1f);
-
-
-
-
-
     }
+
 }
