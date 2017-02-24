@@ -22,6 +22,7 @@ import com.dyman.zhihudaily.network.RetrofitHelper;
 import com.dyman.zhihudaily.utils.DialogUtils;
 import com.dyman.zhihudaily.utils.common.DividerItemDecoration;
 import com.dyman.zhihudaily.utils.common.ToastUtil;
+import com.dyman.zhihudaily.widget.MyEmptyView;
 
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -37,6 +38,8 @@ public class CommentActivity extends BaseActivity {
     private RecyclerView longCommentRv;
 
     private RecyclerView shortCommentRv;
+
+    private MyEmptyView emptyView;
 
     private CommentAdapter longCAdapter;
     private CommentAdapter shortCAdapter;
@@ -101,6 +104,8 @@ public class CommentActivity extends BaseActivity {
                         new MyOnClickListener(shortCAdapter.getItem(position).getId()));
             }
         });
+
+        emptyView = (MyEmptyView) findViewById(R.id.empty_view_activity_comment);
     }
 
 
@@ -125,14 +130,13 @@ public class CommentActivity extends BaseActivity {
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
-                        //TODO: set EmptyView
                     }
 
                     @Override
                     public void onNext(CommentsInfo commentsInfo) {
                         longCAdapter.updateAdapter(commentsInfo.getComments());
                         lCommentNum = commentsInfo.getComments().size();
-                        updateActionbar();
+                        updateTitleAndView();
                     }
                 });
 
@@ -149,25 +153,30 @@ public class CommentActivity extends BaseActivity {
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
-                        //TODO: set EmptyView
                     }
 
                     @Override
                     public void onNext(CommentsInfo commentsInfo) {
                         shortCAdapter.updateAdapter(commentsInfo.getComments());
                         sCommentNum = commentsInfo.getComments().size();
-                        updateActionbar();
+                        updateTitleAndView();
                     }
                 });
     }
 
     /**
-     *  更新 Actionbar显示的数据
+     *  更新标题 和 判断显示EmptyView
      */
-    private void updateActionbar() {
+    private void updateTitleAndView() {
 
         getSupportActionBar().setTitle((lCommentNum+sCommentNum) + "条点评");
+        if (lCommentNum + sCommentNum != 0) {
+            emptyView.setVisibility(View.GONE);
+        } else {
+            emptyView.setVisibility(View.VISIBLE);
+        }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -187,7 +196,6 @@ public class CommentActivity extends BaseActivity {
                 ToastUtil.ShortToast("编写评论");
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

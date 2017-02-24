@@ -2,6 +2,7 @@ package com.dyman.zhihudaily.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,20 +66,17 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
             holder.replyTv.setVisibility(View.VISIBLE);
             holder.replyTv.setText("//" + commentsBean.getReply_to().getAuthor() + ": "
                     + commentsBean.getReply_to().getContent());
-
             // 在 TextView 完成测量和定位即将绘制时再获取其行数,否则会返回0
             holder.replyTv.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                 @Override
                 public boolean onPreDraw() {
                     // 获取完行数注销监听
                     holder.replyTv.getViewTreeObserver().removeOnPreDrawListener(this);
-
                     //  回复内容超过两行显示"展开"按钮
                     if (holder.replyTv.getLineCount() > 2) {
                         holder.spreadReplyBtn.setVisibility(View.VISIBLE);
                         holder.replyTv.setMaxLines(2);
                     }
-
                     return false;
                 }
             });

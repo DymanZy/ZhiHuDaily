@@ -11,6 +11,12 @@
 
     <include layout="@layout/layout_toolbar"/>
 
+    <com.dyman.zhihudaily.widget.MyEmptyView
+        android:id="@+id/empty_view_activity_comment"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -32,6 +38,7 @@
                 android:layout_height="wrap_content">
 
             </android.support.v7.widget.RecyclerView>
+
         </LinearLayout>
     </ScrollView>
 

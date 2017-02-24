@@ -20,17 +20,17 @@ public class MyEmptyView extends RelativeLayout {
     private TextView emptyTips;
 
     public MyEmptyView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public MyEmptyView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public MyEmptyView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        LayoutInflater.from(context).inflate(R.layout.view_empty, null);
+        LayoutInflater.from(context).inflate(R.layout.view_empty, this, true);
         emptyImage = (ImageView) findViewById(R.id.image_view_empty);
         emptyTips = (TextView) findViewById(R.id.content_view_empty);
     }
