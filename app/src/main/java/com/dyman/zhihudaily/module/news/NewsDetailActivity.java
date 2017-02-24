@@ -57,9 +57,8 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
         setContentView(R.layout.activity_news_detail);
 
         initToolbar();
-        init();
-
-        mScrollPullDownHelper = new ScrollPullDownHelper();
+        initData();
+        initView();
     }
 
 
@@ -74,11 +73,18 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
     }
 
 
-    private void init() {
+    private void initData() {
 
         // 初始化数据
         newsID = getIntent().getIntExtra(IntentKeys.NEWS_ID, 0);
         statusHeight = DisplayUtil.getStatusBarHeight(ZhiHuDailyApp.getInstance());
+        // 实例化滑动监听帮助类
+        mScrollPullDownHelper = new ScrollPullDownHelper();
+    }
+
+
+    private void initView() {
+
         //  实例化Toolbar部件的监听
         findViewById(R.id.share_iv_status).setOnClickListener(this);
         findViewById(R.id.collect_iv_status).setOnClickListener(this);
@@ -88,6 +94,7 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
         commentNumTv = (TextView) findViewById(R.id.commentNum_tv_layout_story_toolbar);
         //  头部控件
         imageTextLayout = (MyImageTextLayout) findViewById(R.id.container_header_activity_news_detail);
+        imageTextLayout.isHideHeaderMask(false);
         //  初始化 ScrollView 及其滑动监听
         mScrollView = (ScrollView) findViewById(R.id.scrollView_activity_news_detail);
         mScrollView.setOverScrollMode(View.OVER_SCROLL_NEVER); //去掉滑动到底部的蓝色阴影

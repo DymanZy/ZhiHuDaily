@@ -28,14 +28,16 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/longComment_rv_activity_comment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:overScrollMode="never">
 
             </android.support.v7.widget.RecyclerView>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/shortComment_rv_activity_comment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:overScrollMode="never">
 
             </android.support.v7.widget.RecyclerView>
 

@@ -2,6 +2,7 @@ package com.dyman.zhihudaily.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
@@ -20,6 +21,7 @@ public class MyImageTextLayout extends RelativeLayout {
     private static final String TAG = MyImageTextLayout.class.getSimpleName();
     
     private RelativeLayout mRelativeLayout;
+    private ImageView mHeaderMask;
     private ImageView mImgView;
     private TextView mTextView;
     private TextView mImgSourceTv;
@@ -32,6 +34,7 @@ public class MyImageTextLayout extends RelativeLayout {
         super(context, attrs, 0);
         LayoutInflater.from(context).inflate(R.layout.view_image_text, this, true);
         mRelativeLayout = (RelativeLayout) findViewById(R.id.body_image_text_view);
+        mHeaderMask = (ImageView) findViewById(R.id.mask);
         mImgView = (ImageView) findViewById(R.id.image_iv);
         mTextView = (TextView) findViewById(R.id.title_tv);
         mImgSourceTv = (TextView) findViewById(R.id.imageSource_tv);
@@ -66,5 +69,14 @@ public class MyImageTextLayout extends RelativeLayout {
 
     /** 返回 ImageView 方便网络加载图片 */
     public ImageView getImageView() {return mImgView;}
+
+    /** 是否隐藏头部掩饰控件 */
+    public void isHideHeaderMask(boolean b) {
+        if (b) {
+            mHeaderMask.setVisibility(GONE);
+        } else {
+            mHeaderMask.setVisibility(VISIBLE);
+        }
+    }
 
 }

@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.adapter.listener.AdapterItemClickListener;
 import com.dyman.zhihudaily.entity.NewsLatestInfo;
+import com.dyman.zhihudaily.entity.StoryBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,8 @@ import java.util.List;
  * Created by dyman on 2017/2/20.
  */
 
-public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.MyViewHolder>{
-    private static final String TAG = HomePageAdapter.class.getSimpleName();
+public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.MyViewHolder>{
+    private static final String TAG = NewListAdapter.class.getSimpleName();
 
     /** item 的点击监听 */
     private AdapterItemClickListener listener;
@@ -32,26 +33,32 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.MyView
     }
 
     private Context context;
-    private List<NewsLatestInfo.StoriesBean> storiesBeanList;
+    private List<StoryBean> storiesBeanList;
 
 
-    public HomePageAdapter(Context context) {
+    public NewListAdapter(Context context) {
         this.context = context;
         storiesBeanList = new ArrayList<>();
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item_home_page_fragment, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.item_news, parent, false);
         return new MyViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.title.setText(storiesBeanList.get(position).getTitle());
-        Glide.with(context)
+        // TODO: 完善图片判空处理
+        if (storiesBeanList.get(position).getImages() != null) {
+            Glide.with(context)
                 .load(storiesBeanList.get(position).getImages().get(0))
                 .into(holder.image);
+
+        } else {
+            holder.image.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -64,14 +71,14 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.MyView
      *  更新 adapter 中的信息
      * @param storiesList
      */
-    public void updateAdapter(List<NewsLatestInfo.StoriesBean> storiesList) {
+    public void updateAdapter(List<StoryBean> storiesList) {
         if (storiesBeanList != null && !storiesList.isEmpty()) {
             storiesBeanList.clear();
         }
         for (int i = 0, len = storiesList.size(); i < len; i++) {
             storiesBeanList.add(storiesList.get(i));
         }
-        Log.i(TAG, "updateAdapter: --------storiesBeanList.size = " + storiesBeanList.size());
+        notifyDataSetChanged();
     }
 
 

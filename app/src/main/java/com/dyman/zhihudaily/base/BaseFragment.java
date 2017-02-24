@@ -47,9 +47,15 @@ public abstract class BaseFragment extends Fragment {
         Log.i(TAG, "onViewCreated is called");
         super.onViewCreated(view, savedInstanceState);
         finishCreateView(savedInstanceState);
+        lazyInit();
+        loadData();
     }
 
     public abstract void finishCreateView(Bundle state);
+
+    public abstract void lazyInit();
+
+    public abstract void loadData();
 
 
     public FragmentActivity getSupportActivity() {

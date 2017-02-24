@@ -20,6 +20,7 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/imageStory_iv_item_home_page"
             android:maxLines="2"
+            android:minLines="2"
             android:text="文章题目......"
             android:textColor="@color/black"/>
 

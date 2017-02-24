@@ -6,42 +6,46 @@
 
     <ImageView
         android:id="@+id/mask"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/view_header_mask_story_height"
         android:src="@drawable/mask"/>
-    
-    <ImageView
-        android:id="@+id/image_iv"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/view_header_img_story_height"
-        android:layout_below="@+id/mask"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/saber"/>
+        android:layout_below="@+id/mask">
+        <ImageView
+            android:id="@+id/image_iv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_header_img_story_height"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/saber"/>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/view_header_img_story_height"
-        android:layout_below="@+id/mask"
-        android:src="@drawable/mask"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_header_img_story_height"
+            android:src="@drawable/mask"/>
 
-    <TextView
-        android:id="@+id/title_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:padding="30dp"
-        android:text="我是标题"
-        android:textSize="18sp"
-        android:textColor="@color/background_gray"/>
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:padding="30dp"
+            android:text="我是标题"
+            android:textSize="18sp"
+            android:textColor="@color/background_gray"/>
 
-    <TextView
-        android:id="@+id/imageSource_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="10dp"
-        android:textColor="@color/text_image_source"/>
+        <TextView
+            android:id="@+id/imageSource_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/text_image_source"/>
+    </RelativeLayout>
+
 
 </RelativeLayout>

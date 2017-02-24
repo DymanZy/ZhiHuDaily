@@ -3,6 +3,7 @@ package com.dyman.zhihudaily.module.common;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,6 +17,7 @@ import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.module.home.HomePageFragment;
 import com.dyman.zhihudaily.module.news.NewsDetailActivity;
+import com.dyman.zhihudaily.module.theme.ThemeListFragment;
 import com.dyman.zhihudaily.utils.common.ToastUtil;
 
 public class MainActivity extends BaseActivity
@@ -32,6 +34,8 @@ public class MainActivity extends BaseActivity
     private long exitTime;
 
     private HomePageFragment mHomePageFragment;
+
+    private String[] titles;
 
 
     @Override
@@ -67,9 +71,11 @@ public class MainActivity extends BaseActivity
 
     private void initFragment() {
         mHomePageFragment = HomePageFragment.newInstance();
+        ThemeListFragment mThemeListFragment = ThemeListFragment.newInstance();
         //...
 
-        fragments = new Fragment[] {mHomePageFragment};
+        fragments = new Fragment[] {mHomePageFragment, mThemeListFragment};
+        titles = new String[] {"ZhiHuDaily", "主题日报", "栏目总览", "过往消息"};
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -77,7 +83,10 @@ public class MainActivity extends BaseActivity
                 .show(mHomePageFragment).commit();
     }
 
-
+    /**
+     *  侧滑菜单头部控件的点击监听
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -135,28 +144,62 @@ public class MainActivity extends BaseActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_hots) {
-            // Handle the camera action
-        } else if (id == R.id.nav_themes) {
-
-        } else if (id == R.id.nav_sections) {
-
-        } else if (id == R.id.nav_before) {
-
-        } else if (id == R.id.nav_share) {
-            Intent it = new Intent(MainActivity.this, NewsDetailActivity.class);
-            startActivity(it);
-
-        } else if (id == R.id.nav_send) {
-
-        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        switch (item.getItemId()) {
+            case R.id.nav_hots:
+                // 主页, 最新消息
+                changeFragmentIndex(item, 0);
+                break;
+            case R.id.nav_themes:
+                // 主题日报列表
+                changeFragmentIndex(item, 1);
+                break;
+            case R.id.nav_sections:
+                // 专栏列表
+                break;
+            case R.id.nav_before:
+                //  过往消息
+                break;
+            case R.id.nav_share:
+                // 分享
+                break;
+            case R.id.nav_send:
+                // 发送
+                break;
+        }
+
         return true;
+    }
+
+
+    /**
+     *  Fragment切换
+     */
+    private void switchFragment() {
+
+        FragmentTransaction trx = getSupportFragmentManager().beginTransaction();
+        trx.hide(fragments[currentTabIndex]);
+        if (!fragments[index].isAdded()) {
+            trx.add(R.id.container_app_bar_main, fragments[index]);
+        }
+        trx.show(fragments[index]).commit();
+        currentTabIndex = index;
+    }
+
+
+    /**
+     *  切换 Fragment 的下标
+     * @param item
+     * @param currentIndex
+     */
+    private void changeFragmentIndex(MenuItem item, int currentIndex) {
+
+        index = currentIndex;
+        switchFragment();
+        item.setChecked(true);
+        getSupportActionBar().setTitle(titles[currentIndex]);
     }
 
 

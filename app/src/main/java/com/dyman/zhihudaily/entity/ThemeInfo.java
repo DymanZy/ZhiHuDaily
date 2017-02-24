@@ -54,7 +54,7 @@ public class ThemeInfo {
     private String name;
     private String image;
     private String image_source;
-    private List<StoriesBean> stories;
+    private List<StoryBean> stories;
     private List<EditorsBean> editors;
 
     public String getDescription() {
@@ -105,11 +105,11 @@ public class ThemeInfo {
         this.image_source = image_source;
     }
 
-    public List<StoriesBean> getStories() {
+    public List<StoryBean> getStories() {
         return stories;
     }
 
-    public void setStories(List<StoriesBean> stories) {
+    public void setStories(List<StoryBean> stories) {
         this.stories = stories;
     }
 
@@ -121,51 +121,6 @@ public class ThemeInfo {
         this.editors = editors;
     }
 
-    public static class StoriesBean {
-        /**
-         * type : 0
-         * id : 7483361
-         * title : 更多电影内容，都在读读日报里
-         * images : ["http://pic4.zhimg.com/e43e1f7d8dfce546c4e95e944bcfb6cb_t.jpg"]
-         */
-
-        private int type;
-        private int id;
-        private String title;
-        private List<String> images;
-
-        public int getType() {
-            return type;
-        }
-
-        public void setType(int type) {
-            this.type = type;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public List<String> getImages() {
-            return images;
-        }
-
-        public void setImages(List<String> images) {
-            this.images = images;
-        }
-    }
 
     public static class EditorsBean {
         /**

@@ -15,7 +15,7 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.ZhiHuDailyApp;
 import com.dyman.zhihudaily.adapter.listener.AdapterItemClickListener;
-import com.dyman.zhihudaily.adapter.HomePageAdapter;
+import com.dyman.zhihudaily.adapter.NewListAdapter;
 import com.dyman.zhihudaily.base.BaseFragment;
 import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.NewsLatestInfo;
@@ -47,7 +47,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
 
     private RecyclerView mRecyclerView;
 
-    private HomePageAdapter adapter;
+    private NewListAdapter adapter;
 
     private NewsLatestInfo newsInfo;
 
@@ -85,14 +85,14 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     }
 
 
-    private void lazyInit() {
+    @Override
+    public void lazyInit() {
 
         if (!isPrepared) {
             return;
         }
 
         initLayout();
-        loadData();
         isPrepared = false;
     }
 
@@ -109,20 +109,20 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         mConvenientBanner.setOnItemClickListener(this);
 
         //  实例化HomePageAdapter
-        adapter = new HomePageAdapter(ZhiHuDailyApp.getInstance());
+        adapter = new NewListAdapter(ZhiHuDailyApp.getInstance());
         adapter.setAdapterListener(this);
         //  初始化RecyclerView
         mRecyclerView = (RecyclerView) getSupportActivity().findViewById(R.id.newsLatest_rv);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getSupportActivity()));
         mRecyclerView.setAdapter(adapter);
-
     }
 
 
     /**
      *  加载数据
      */
-    private void loadData() {
+    @Override
+    public void loadData() {
 
         RetrofitHelper.getZhiHuAPI()
                 .getNewsLatestList()
@@ -148,7 +148,6 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
                                    newsInfo = newsLatestInfo;
                                    updateConvenientBanner(newsInfo.getTop_stories());
                                    adapter.updateAdapter(newsInfo.getStories());
-                                   adapter.notifyDataSetChanged();
                                }
                            }
                 );
@@ -175,6 +174,10 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     }
 
 
+    /**
+     *  跳转到文章详情页面
+     * @param newID
+     */
     private void intentToDetail(int newID) {
         Intent it = new Intent(getSupportActivity(), NewsDetailActivity.class);
         it.putExtra(IntentKeys.NEWS_ID, newID);
