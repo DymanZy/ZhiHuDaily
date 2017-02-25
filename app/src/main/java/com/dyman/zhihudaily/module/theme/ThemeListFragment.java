@@ -102,9 +102,7 @@ public class ThemeListFragment extends BaseFragment implements AdapterItemClickL
                     public void onNext(ThemeListInfo themeListInfo) {
 
                         adapter.updateAdapter(themeListInfo.getOthers());
-                        if (themeListInfo.getOthers().size() == 0) {
-                            emptyView.setVisibility(View.VISIBLE);
-                        } else {
+                        if (themeListInfo.getOthers() == null) {
                             emptyView.setVisibility(View.GONE);
                         }
                     }

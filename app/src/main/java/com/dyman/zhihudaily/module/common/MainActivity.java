@@ -17,6 +17,7 @@ import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.module.home.HomePageFragment;
 import com.dyman.zhihudaily.module.news.NewsDetailActivity;
+import com.dyman.zhihudaily.module.section.SectionTotalFragment;
 import com.dyman.zhihudaily.module.theme.ThemeListFragment;
 import com.dyman.zhihudaily.utils.common.ToastUtil;
 
@@ -72,9 +73,10 @@ public class MainActivity extends BaseActivity
     private void initFragment() {
         mHomePageFragment = HomePageFragment.newInstance();
         ThemeListFragment mThemeListFragment = ThemeListFragment.newInstance();
+        SectionTotalFragment mSectionTotalFragment = SectionTotalFragment.newInstance();
         //...
 
-        fragments = new Fragment[] {mHomePageFragment, mThemeListFragment};
+        fragments = new Fragment[] {mHomePageFragment, mThemeListFragment, mSectionTotalFragment};
         titles = new String[] {"ZhiHuDaily", "主题日报", "栏目总览", "过往消息"};
 
         getSupportFragmentManager()
@@ -153,15 +155,19 @@ public class MainActivity extends BaseActivity
                 break;
             case R.id.nav_sections:
                 // 专栏列表
+                changeFragmentIndex(item, 2);
                 break;
             case R.id.nav_before:
                 //  过往消息
+                ToastUtil.ShortToast("有待完善");
                 break;
             case R.id.nav_share:
                 // 分享
+                ToastUtil.ShortToast("有待完善");
                 break;
             case R.id.nav_send:
                 // 发送
+                ToastUtil.ShortToast("有待完善");
                 break;
         }
 

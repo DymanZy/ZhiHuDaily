@@ -61,7 +61,6 @@ public class SectionDetailInfo {
          * title : 深夜惊奇 · 要穿内衣
          * multipic : true
          */
-
         private String date;
         private String display_date;
         private int id;

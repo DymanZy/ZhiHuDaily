@@ -19,7 +19,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/view_header_story_height"
+                android:layout_height="@dimen/view_header_img_story_height"
                 app:canLoop="true"/>
 
             <LinearLayout
