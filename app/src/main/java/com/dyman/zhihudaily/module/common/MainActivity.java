@@ -91,15 +91,20 @@ public class MainActivity extends BaseActivity
      */
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
             case R.id.userInfo_ll_nav_header_main:
-                ToastUtil.ShortToast("点击了用户信息");
+                Intent it = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(it);
                 break;
+
             case R.id.userCollectInfo_ll_nav_header_main:
-
+                Intent it1 = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(it1);
                 break;
-            case R.id.offlineDownload_ll_nav_header_main:
 
+            case R.id.offlineDownload_ll_nav_header_main:
+                ToastUtil.ShortToast("待完善");
                 break;
         }
     }

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.dyman.zhihudaily.module.common.LoginActivity">
+
+    <include layout="@layout/layout_toolbar"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/textView_activity_login"
+            android:layout_marginBottom="100dp"
+            android:text="知乎日报"
+            android:textSize="30sp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/textView_activity_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="使用微博登录"
+            android:textSize="18sp"
+            android:textColor="@color/white_light"/>
+
+        <RelativeLayout
+            android:id="@+id/sina_ll_activity_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView_activity_login"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="100dp"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:background="@drawable/btn_bg_white_radiu"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/textView1_activity_login"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/account_sina"/>
+            <TextView
+                android:id="@+id/textView1_activity_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="新浪微博"
+                android:textSize="16sp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/tencent_ll_activity_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sina_ll_activity_login"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="100dp"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:background="@drawable/btn_bg_white_radiu"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/textView2_activity_login"
+                android:src="@mipmap/account_tencent"/>
+            <TextView
+                android:id="@+id/textView2_activity_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="腾讯微博"
+                android:textSize="16sp"/>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:text="知乎日报不会未经同意通过你的微博账号发布任何信息"
+            android:textColor="@color/white_light"/>
+    </RelativeLayout>
+
+</LinearLayout>
