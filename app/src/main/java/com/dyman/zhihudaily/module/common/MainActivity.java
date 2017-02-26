@@ -129,9 +129,14 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.mode_night:
+                ToastUtil.ShortToast("待完善");
+                break;
+            case R.id.action_settings:
+                Intent it = new Intent(MainActivity.this, SettingActivity.class);
+                startActivity(it);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
