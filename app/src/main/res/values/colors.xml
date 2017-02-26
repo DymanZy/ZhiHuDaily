@@ -14,6 +14,7 @@
     <color name="black_light">#CC404040</color>
     <color name="cut_off">#A0A0A0</color>
     <color name="cut_off_light">#DDDDDD</color>
+    <color name="transparent">#FAFAFA</color>
 
 
     <color name="style_window_background">@color/white</color>

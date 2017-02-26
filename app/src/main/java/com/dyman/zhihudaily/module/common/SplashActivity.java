@@ -42,7 +42,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void finishTask() {
 
-        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        startActivity(new Intent(SplashActivity.this, GuideActivity.class));
 
         SplashActivity.this.finish();
     }

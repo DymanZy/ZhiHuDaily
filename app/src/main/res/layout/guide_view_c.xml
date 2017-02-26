@@ -12,9 +12,21 @@
         android:padding="15dp"/>
 
     <ImageView
+        android:id="@+id/imageView_guide_view_c"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:src="@mipmap/guide_pic_c2"/>
+
+    <Button
+        android:id="@+id/nowBegin_btn_guide_view_c"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/imageView_guide_view_c"
+        android:layout_marginTop="30dp"
+        android:text="现在开启"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/btn_start"/>
 
 </RelativeLayout>

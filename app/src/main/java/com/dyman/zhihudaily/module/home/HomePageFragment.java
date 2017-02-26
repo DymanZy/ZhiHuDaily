@@ -167,7 +167,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
                         return new MyImageTextLayoutHolderView();
                     }
                 }, list)
-                .setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused})
+                .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focused})
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
         // 开始自动翻页
         mConvenientBanner.startTurning(4000);
