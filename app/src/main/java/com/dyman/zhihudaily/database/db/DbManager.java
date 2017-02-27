@@ -1,6 +1,7 @@
 package com.dyman.zhihudaily.database.db;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.dyman.zhihudaily.ZhiHuDailyApp;
 
@@ -11,6 +12,8 @@ import com.dyman.zhihudaily.ZhiHuDailyApp;
  */
 
 public class DbManager {
+
+    private static final String TAG = DbManager.class.getSimpleName();
 
     private static DbManager manager;
     private MySQLiteOpenHelper helper;
@@ -25,6 +28,7 @@ public class DbManager {
         helper = MySQLiteOpenHelper.getInstance(ZhiHuDailyApp.getInstance());
         if (db == null) {
             db = helper.getWritableDatabase();
+            Log.i(TAG, "DbManager:  获取db ---->> helper.getWritableDatabase()");
         }
 
 //        helper.onUpgrade(db, 1, 2);
@@ -50,5 +54,18 @@ public class DbManager {
      */
     public SQLiteDatabase getDataBase() {
         return db;
+    }
+
+
+    /**
+     *  视情况而定, 数据库操作频繁的话就在 Activity 的生命周期中管理, 否则建议每次用完就关闭
+     */
+    public void close() {
+
+        Log.i(TAG, "close: ----- 关闭db和helper, db和manager置空");
+        db.close();
+        helper.close();
+        db = null;
+        manager = null;
     }
 }

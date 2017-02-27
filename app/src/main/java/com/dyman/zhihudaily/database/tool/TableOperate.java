@@ -3,6 +3,7 @@ package com.dyman.zhihudaily.database.tool;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.dyman.zhihudaily.database.dao.ReadSchedule;
 import com.dyman.zhihudaily.database.db.DbManager;
@@ -10,9 +11,6 @@ import com.dyman.zhihudaily.database.db.TableConfig;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-
 /**
  *  数据库的操作类
  *
@@ -21,8 +19,10 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 public class TableOperate {
 
-    private DbManager manager;
-    private SQLiteDatabase db;
+    private static final String TAG = TableOperate.class.getSimpleName();
+
+    private static DbManager manager;
+    private static SQLiteDatabase db;
 
     public TableOperate() {
 
@@ -138,10 +138,14 @@ public class TableOperate {
     }
 
 
-    public void insertReadSchedule(ReadSchedule readSchedule) {
+    /**
+     *  插入阅读记录
+     * @param readSchedule
+     */
+    public static void insertReadSchedule(ReadSchedule readSchedule) {
 
+        init();
         ContentValues values = new ContentValues();
-
         values.put(TableConfig.ReadSchedule.ARTICLE_ID, readSchedule.getArticleID());
         values.put(TableConfig.ReadSchedule.READ_TIME, readSchedule.getReadTime());
         values.put(TableConfig.ReadSchedule.READ_RATIO, readSchedule.getReadRatio());
@@ -155,29 +159,43 @@ public class TableOperate {
             System.out.println("---  插入数据  ---");
             db.insert(TableConfig.TABLE_READ_SCHEDULE, null, values);
         }
+
+        close();
     }
 
 
-    public void getReadSchedule(String articleID) {
+    /**
+     *  读取阅读记录
+     * @param articleID
+     * @return
+     */
+    public static ReadSchedule getReadSchedule(String articleID) {
 
+        init();
+        ReadSchedule readSchedule = null;
         Cursor cursor = db.query(TableConfig.TABLE_READ_SCHEDULE,
                 null,
                 TableConfig.ReadSchedule.ARTICLE_ID+"=?",
                 new String[]{articleID},
                 null, null, null);
 
-        cursor.moveToFirst();
-        String article_id = cursor.getString(cursor.getColumnIndex(TableConfig.ReadSchedule.ARTICLE_ID));
-        System.out.println("id = "+article_id);
-        String read_time = cursor.getString(cursor.getColumnIndex(TableConfig.ReadSchedule.READ_TIME));
-        String read_ratio = cursor.getString(cursor.getColumnIndex(TableConfig.ReadSchedule.READ_RATIO));
+        while(cursor.moveToNext()) {
+            String article_id = cursor.getString(cursor.getColumnIndex(TableConfig.ReadSchedule.ARTICLE_ID));
+            String read_time = cursor.getString(cursor.getColumnIndex(TableConfig.ReadSchedule.READ_TIME));
+            String read_ratio = cursor.getString(cursor.getColumnIndex(TableConfig.ReadSchedule.READ_RATIO));
+            readSchedule = new ReadSchedule();
+            readSchedule.setReadRatio(article_id);
+            readSchedule.setReadTime(read_time);
+            readSchedule.setReadRatio(read_ratio);
+        }
         cursor.close();
-
+        close();
+        return readSchedule;
     }
 
 
 
-    private boolean isHas(String articleID) {
+    private static boolean isHas(String articleID) {
         boolean result = false;
 
         Cursor cursor = db.query(TableConfig.TABLE_READ_SCHEDULE,
@@ -197,15 +215,15 @@ public class TableOperate {
         return result;
     }
 
+    private static void init() {
+        manager = DbManager.newInstance();
+        db = manager.getDataBase();
+    }
 
-
-//    /**
-//     *  关闭 SQLiteDataBase 和 dataBaseHelper (未完成)
-//     */
-//    public void close() {
-//        //  不关闭可以吗?
-//        manager.close();
-//        db.close();
-//    }
+    private static void close() {
+        Log.i(TAG, "close: ---- 关闭 db 和 manager");
+        db.close();
+        manager.close();
+    }
 
 }

@@ -1,8 +1,10 @@
 package com.dyman.zhihudaily.module.news;
 
 import android.content.Intent;
+import android.icu.text.DecimalFormat;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -19,11 +21,14 @@ import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.ZhiHuDailyApp;
 import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.base.IntentKeys;
+import com.dyman.zhihudaily.database.dao.ReadSchedule;
 import com.dyman.zhihudaily.database.db.DataBaseInit;
+import com.dyman.zhihudaily.database.tool.TableOperate;
 import com.dyman.zhihudaily.entity.NewsDetailInfo;
 import com.dyman.zhihudaily.entity.StoryExtraInfo;
 import com.dyman.zhihudaily.network.RetrofitHelper;
 import com.dyman.zhihudaily.utils.common.DisplayUtil;
+import com.dyman.zhihudaily.utils.common.SnackbarUtil;
 import com.dyman.zhihudaily.utils.common.WebUtils;
 import com.dyman.zhihudaily.utils.helper.ScrollPullDownHelper;
 import com.dyman.zhihudaily.utils.common.ToastUtil;
@@ -53,6 +58,8 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
     private ScrollPullDownHelper mScrollPullDownHelper;
     /** 状态栏高度 */
     private float statusHeight = 0f;
+    /** 文章的阅读进度 */
+    private double readRatio = 0;
 
 
     @Override
@@ -125,6 +132,7 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
                     @Override
                     public void onCompleted() {
                         Log.i(TAG, "-----加载文章数据完成-----");
+                        readRecord();
                     }
 
                     @Override
@@ -165,6 +173,7 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
                 });
     }
 
+
     /**
      *  绑定头部展示的图片数据
      * @param title
@@ -190,6 +199,34 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
         Log.i(TAG, "----------------showHtml is called");
         String data = WebUtils.buildHtmlWithCss(newsDetailInfo.getBody(), newsDetailInfo.getCss(), false);
         webView.loadDataWithBaseURL(WebUtils.BASE_URL, data, WebUtils.MIME_TYPE, WebUtils.ENCODING, WebUtils.FAIL_URL);
+    }
+
+
+    /**
+     *  获取文章的阅读进度记录, 并提示转跳
+     */
+    private void readRecord() {
+
+        ReadSchedule readSchedule = TableOperate.getReadSchedule(String.valueOf(newsID));
+        if (readSchedule != null) {
+
+            readRatio = Double.parseDouble(readSchedule.getReadRatio());
+            if (readRatio == 1.0) return;
+
+            Log.i(TAG, "setReadRecordTip: -------- 上一次阅读进度为: " + readRatio);
+            Snackbar.make(mScrollView, "上次阅读进度为 "+ readRatio*100/1.0+"%", Snackbar.LENGTH_LONG)
+                    .setAction("转跳", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            double y = contentView.getMeasuredHeight() * readRatio;
+                            int scrollY = (new Double(y)).intValue() - mScrollView.getHeight();
+                            mScrollView.setScrollY(scrollY);
+                        }
+                    }).show();
+        } else {
+            Log.i(TAG, "initData: -------- 第一次阅读");
+        }
     }
 
 
@@ -283,6 +320,30 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
 
         int totalSchedule = contentView.getMeasuredHeight();
         int currSchedule = mScrollView.getScrollY() + mScrollView.getHeight();
+        float ratio = (float) currSchedule / totalSchedule;
+        double currRatio = ((int)(ratio*1000))/1000.0;
+        Log.i(TAG, "saveReadSchedule: ------------ readRatio = "+readRatio);
+        if (currRatio > readRatio) readRatio = currRatio;
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume is called");
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, "onPause is called");
+
+        ReadSchedule readSchedule = new ReadSchedule();
+        readSchedule.setArticleID(String.valueOf(newsID));
+        readSchedule.setReadTime(String.valueOf(System.currentTimeMillis()));
+        readSchedule.setReadRatio(String.valueOf(readRatio));
+
+        TableOperate.insertReadSchedule(readSchedule);
+    }
 }
