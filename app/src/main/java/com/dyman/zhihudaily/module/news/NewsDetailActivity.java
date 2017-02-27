@@ -221,7 +221,7 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
 
                             double y = contentView.getMeasuredHeight() * readRatio;
                             int scrollY = (new Double(y)).intValue() - mScrollView.getHeight();
-                            mScrollView.scrollTo(0, scrollY);
+                            mScrollView.smoothScrollTo(0, scrollY);
                             ToastUtil.ShortToast("欢迎回来!");
                         }
                     }).show();
