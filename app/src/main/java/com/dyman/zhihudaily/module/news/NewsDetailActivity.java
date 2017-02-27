@@ -214,14 +214,15 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
             if (readRatio == 1.0) return;
 
             Log.i(TAG, "setReadRecordTip: -------- 上一次阅读进度为: " + readRatio);
-            Snackbar.make(mScrollView, "上次阅读进度为 "+ readRatio*100/1.0+"%", Snackbar.LENGTH_LONG)
+            Snackbar.make(mScrollView, "上次阅读进度为 "+ readRatio*100+"%", Snackbar.LENGTH_LONG)
                     .setAction("转跳", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 
                             double y = contentView.getMeasuredHeight() * readRatio;
                             int scrollY = (new Double(y)).intValue() - mScrollView.getHeight();
-                            mScrollView.setScrollY(scrollY);
+                            mScrollView.scrollTo(0, scrollY);
+                            ToastUtil.ShortToast("欢迎回来!");
                         }
                     }).show();
         } else {
