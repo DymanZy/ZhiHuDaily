@@ -2,6 +2,7 @@ package com.dyman.zhihudaily;
 
 import android.app.Application;
 
+import com.dyman.zhihudaily.database.db.DataBaseInit;
 import com.facebook.stetho.Stetho;
 
 /**
@@ -25,6 +26,8 @@ public class ZhiHuDailyApp extends Application{
 
 
     private void init() {
+
+//        DataBaseInit.initReadScheduleTable();
 
         //初始化Stetho调试工具
         Stetho.initialize(

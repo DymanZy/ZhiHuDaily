@@ -19,6 +19,7 @@ import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.ZhiHuDailyApp;
 import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.base.IntentKeys;
+import com.dyman.zhihudaily.database.db.DataBaseInit;
 import com.dyman.zhihudaily.entity.NewsDetailInfo;
 import com.dyman.zhihudaily.entity.StoryExtraInfo;
 import com.dyman.zhihudaily.network.RetrofitHelper;
@@ -27,6 +28,7 @@ import com.dyman.zhihudaily.utils.common.WebUtils;
 import com.dyman.zhihudaily.utils.helper.ScrollPullDownHelper;
 import com.dyman.zhihudaily.utils.common.ToastUtil;
 import com.dyman.zhihudaily.widget.MyImageTextLayout;
+import com.dyman.zhihudaily.widget.ScrollWebView;
 
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -41,7 +43,9 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
     /** 新闻背景控件 */
     private MyImageTextLayout imageTextLayout;
     private ScrollView mScrollView;
-    private WebView webView;
+    /** ScrollView 的子View */
+    private View contentView;
+    private ScrollWebView webView;
     private Toolbar toolbar;
     private TextView markNumTv;
     private TextView commentNumTv;
@@ -60,6 +64,8 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
         initData();
         initView();
         loadData(String.valueOf(newsID));
+
+
     }
 
 
@@ -100,8 +106,9 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
         mScrollView = (ScrollView) findViewById(R.id.scrollView_activity_news_detail);
         mScrollView.setOverScrollMode(View.OVER_SCROLL_NEVER); //去掉滑动到底部的蓝色阴影
         mScrollView.getViewTreeObserver().addOnScrollChangedListener(this);
+        contentView = mScrollView.getChildAt(0);
         //  初始化网页显示控件
-        webView = (WebView) findViewById(R.id.webView_activity_news_detail);
+        webView = (ScrollWebView) findViewById(R.id.webView_activity_news_detail);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.getSettings().setJavaScriptEnabled(true);// 设置支持JavaScript
     }
@@ -222,15 +229,34 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
     @Override
     public void onScrollChanged() {
 
-        //  改变 HeaderView 的位置
+        changeHeaderViewPosition();
+
+        changeToolbarAlphaAndPosition();
+
+        saveReadSchedule();
+    }
+
+
+    /**
+     *  改变 HeaderView 的位置
+     */
+    private void changeHeaderViewPosition() {
+
         int scrollY = mScrollView.getScrollY();
         int headerScrollY = (scrollY > 0) ? (scrollY / 2) : 0;
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             imageTextLayout.setScrollY(headerScrollY);
             imageTextLayout.requestLayout();//view 的位置改变,请求重新绘制
         }
+    }
 
-        //  改变 Toolbar 的透明度和位置
+
+    /**
+     *  改变 Toolbar 的透明度和位置
+     */
+    private void changeToolbarAlphaAndPosition() {
+
+        int scrollY = mScrollView.getScrollY();
         int storyHeaderViewHeight = getResources().getDimensionPixelSize(R.dimen.view_header_story_height);
         float toolbarHeight = toolbar.getHeight();
         float contentHeight = storyHeaderViewHeight - toolbarHeight;
@@ -249,5 +275,14 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
         toolbar.setAlpha(1f);
     }
 
+
+    /**
+     *  保存阅读进度
+     */
+    private void saveReadSchedule() {
+
+        int totalSchedule = contentView.getMeasuredHeight();
+        int currSchedule = mScrollView.getScrollY() + mScrollView.getHeight();
+    }
 
 }

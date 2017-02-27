@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.adapter.GuideViewPagerAdapter;
+import com.dyman.zhihudaily.database.db.DataBaseInit;
 import com.dyman.zhihudaily.utils.common.SystemUiVisibilityUtil;
 
 import java.util.ArrayList;

@@ -28,7 +28,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/view_header_story_height"/>
-                <WebView
+                <com.dyman.zhihudaily.widget.ScrollWebView
                     android:id="@+id/webView_activity_news_detail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
