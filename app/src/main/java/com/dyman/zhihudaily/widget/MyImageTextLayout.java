@@ -15,7 +15,6 @@ import com.dyman.zhihudaily.R;
 /**
  * Created by dyman on 2017/2/20.
  */
-
 public class MyImageTextLayout extends RelativeLayout {
 
     private static final String TAG = MyImageTextLayout.class.getSimpleName();

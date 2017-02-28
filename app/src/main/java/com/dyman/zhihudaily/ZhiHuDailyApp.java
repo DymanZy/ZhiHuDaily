@@ -29,7 +29,7 @@ public class ZhiHuDailyApp extends Application{
 
 //        DataBaseInit.initReadScheduleTable();
 
-        //初始化Stetho调试工具
+        // 初始化Stetho调试工具
         Stetho.initialize(
             Stetho.newInitializerBuilder(this)
                 .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
