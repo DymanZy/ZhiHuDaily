@@ -71,6 +71,7 @@ public class MainActivity extends BaseActivity
 
 
     private void initFragment() {
+
         mHomePageFragment = HomePageFragment.newInstance();
         ThemeListFragment mThemeListFragment = ThemeListFragment.newInstance();
         SectionTotalFragment mSectionTotalFragment = SectionTotalFragment.newInstance();
@@ -94,13 +95,11 @@ public class MainActivity extends BaseActivity
 
         switch (v.getId()) {
             case R.id.userInfo_ll_nav_header_main:
-                Intent it = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(it);
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 break;
 
             case R.id.userCollectInfo_ll_nav_header_main:
-                Intent it1 = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(it1);
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 break;
 
             case R.id.offlineDownload_ll_nav_header_main:
@@ -115,6 +114,7 @@ public class MainActivity extends BaseActivity
      */
     @Override
     public void onBackPressed() {
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -134,6 +134,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case R.id.mode_night:
                 ToastUtil.ShortToast("待完善");
@@ -143,7 +144,6 @@ public class MainActivity extends BaseActivity
                 startActivity(it);
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -167,16 +167,12 @@ public class MainActivity extends BaseActivity
                 // 专栏列表
                 changeFragmentIndex(item, 2);
                 break;
-            case R.id.nav_before:
-                //  过往消息
-                ToastUtil.ShortToast("有待完善");
-                break;
             case R.id.nav_share:
-                // 分享
+                // 分享软件
                 ToastUtil.ShortToast("有待完善");
                 break;
-            case R.id.nav_send:
-                // 发送
+            case R.id.nav_about_author:
+                // 关于作者
                 ToastUtil.ShortToast("有待完善");
                 break;
         }

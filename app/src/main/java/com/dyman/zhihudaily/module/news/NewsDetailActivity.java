@@ -26,6 +26,7 @@ import com.dyman.zhihudaily.database.db.DataBaseInit;
 import com.dyman.zhihudaily.database.tool.TableOperate;
 import com.dyman.zhihudaily.entity.NewsDetailInfo;
 import com.dyman.zhihudaily.entity.StoryExtraInfo;
+import com.dyman.zhihudaily.module.common.LoginActivity;
 import com.dyman.zhihudaily.network.RetrofitHelper;
 import com.dyman.zhihudaily.utils.common.DisplayUtil;
 import com.dyman.zhihudaily.utils.common.SnackbarUtil;
@@ -221,7 +222,7 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
 
                             double y = contentView.getMeasuredHeight() * readRatio;
                             int scrollY = (new Double(y)).intValue() - mScrollView.getHeight();
-                            mScrollView.smoothScrollTo(0, scrollY);
+                            mScrollView.smoothScrollTo(0, scrollY);//   顺滑滚动
                             ToastUtil.ShortToast("欢迎回来!");
                         }
                     }).show();
@@ -236,17 +237,21 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
         switch (v.getId()) {
             case R.id.share_iv_status:
                 ToastUtil.ShortToast("点击了分享");
+                // TODO
                 break;
-            case R.id.collect_iv_status:
 
+            case R.id.collect_iv_status:
+                startActivity(new Intent(NewsDetailActivity.this, LoginActivity.class));
                 break;
+
             case R.id.comment_iv_status:
                 Intent it = new Intent(NewsDetailActivity.this, CommentActivity.class);
                 it.putExtra(IntentKeys.NEWS_ID, newsID);
                 startActivity(it);
                 break;
-            case R.id.mark_iv_status:
 
+            case R.id.mark_iv_status:
+                startActivity(new Intent(NewsDetailActivity.this, LoginActivity.class));
                 break;
         }
     }
@@ -315,7 +320,7 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
 
 
     /**
-     *  保存阅读进度
+     *  记录阅读进度, 在 onPause() 中再保存或更新到数据库
      */
     private void saveReadSchedule() {
 
@@ -335,6 +340,9 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
     }
 
 
+    /**
+     *  退出或暂停时对阅读进度进行保存
+     */
     @Override
     protected void onPause() {
         super.onPause();

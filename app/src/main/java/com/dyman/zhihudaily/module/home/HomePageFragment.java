@@ -8,6 +8,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
@@ -30,6 +33,8 @@ import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static android.view.View.GONE;
+
 /**
  * Created by dyman on 2017/2/20.
  */
@@ -42,6 +47,10 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     private static final int HANDLER_WHAT_REFRESH = 1001;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private ScrollView scrollView;
+
+    private LinearLayout bodyLl;
 
     private ConvenientBanner mConvenientBanner;
 
@@ -104,6 +113,9 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, R.color.colorAccent,
                 android.R.color.holo_red_light);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        scrollView = (ScrollView) getSupportActivity().findViewById(R.id.scrollView_fragment_home);
+        bodyLl = (LinearLayout) getSupportActivity().findViewById(R.id.linearLayout_fragment_home);
+        scrollView.setVisibility(GONE);
         //  设置轮循菜单
         mConvenientBanner = (ConvenientBanner) getSupportActivity().findViewById(R.id.convenientBanner_fragment_home);
         mConvenientBanner.setOnItemClickListener(this);
@@ -136,6 +148,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
 
                                @Override
                                public void onError(Throwable e) {
+
                                    mSwipeRefreshLayout.setRefreshing(false);
                                    ToastUtil.ShortToast("数据加载失败");
                                    e.printStackTrace();
@@ -143,6 +156,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
 
                                @Override
                                public void onNext(NewsLatestInfo newsLatestInfo) {
+
                                    mSwipeRefreshLayout.setRefreshing(false);
                                    ToastUtil.ShortToast("数据加载成功");
                                    newsInfo = newsLatestInfo;
