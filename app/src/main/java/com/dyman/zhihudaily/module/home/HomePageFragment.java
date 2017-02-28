@@ -115,7 +115,6 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         mSwipeRefreshLayout.setOnRefreshListener(this);
         scrollView = (ScrollView) getSupportActivity().findViewById(R.id.scrollView_fragment_home);
         bodyLl = (LinearLayout) getSupportActivity().findViewById(R.id.linearLayout_fragment_home);
-        scrollView.setVisibility(GONE);
         //  设置轮循菜单
         mConvenientBanner = (ConvenientBanner) getSupportActivity().findViewById(R.id.convenientBanner_fragment_home);
         mConvenientBanner.setOnItemClickListener(this);
