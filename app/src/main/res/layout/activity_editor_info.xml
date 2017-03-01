@@ -11,69 +11,9 @@
 
     <include layout="@layout/layout_toolbar"/>
 
-    <LinearLayout
+    <WebView
+        android:id="@+id/webView_activity_editor_info"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:orientation="horizontal">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/avatar_civ_activity_editor_info"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@mipmap/saber_wlop"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/name_tv_activity_editor_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="name"
-                android:padding="5dp"
-                android:textSize="24sp"/>
-            <TextView
-                android:id="@+id/description_tv_activity_editor_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="个人描述~苏苏苏"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/accountZhiHu_tv_activity_editor_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:text="- 账号知乎："/>
-        <TextView
-            android:id="@+id/accountSina_tv_activity_editor_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:text="- 新浪微博："/>
-        <TextView
-            android:id="@+id/accountPage_tv_activity_editor_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:text="- 个人网站："/>
-        <TextView
-            android:id="@+id/accountEmail_tv_activity_editor_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:text="- 电子邮箱："/>
-    </LinearLayout>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

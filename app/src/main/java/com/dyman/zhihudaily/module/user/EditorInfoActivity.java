@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.network.RetrofitHelper;
+import com.dyman.zhihudaily.network.auxiliary.ApiConstants;
+import com.dyman.zhihudaily.utils.common.WebUtils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import rx.Observer;
@@ -24,20 +28,7 @@ public class EditorInfoActivity extends BaseActivity {
 
     private int editorID;
 
-    private CircleImageView avatarCiv;
-
-    private TextView nameTv;
-
-    private TextView descriptionTv;
-
-    private TextView zhihuTv;
-
-    private TextView sinaTv;
-
-    private TextView pageTv;
-
-    private TextView emailTv;
-
+    private WebView mWebView;
 
 
     @Override
@@ -66,14 +57,9 @@ public class EditorInfoActivity extends BaseActivity {
 
     private void initView() {
 
-        avatarCiv = (CircleImageView) findViewById(R.id.avatar_civ_activity_editor_info);
-        nameTv = (TextView) findViewById(R.id.name_tv_activity_editor_info);
-        descriptionTv = (TextView) findViewById(R.id.description_tv_activity_editor_info);
-        zhihuTv = (TextView) findViewById(R.id.accountZhiHu_tv_activity_editor_info);
-        sinaTv = (TextView) findViewById(R.id.accountSina_tv_activity_editor_info);
-        pageTv = (TextView) findViewById(R.id.accountPage_tv_activity_editor_info);
-        emailTv = (TextView) findViewById(R.id.accountEmail_tv_activity_editor_info);
-
+        mWebView = (WebView) findViewById(R.id.webView_activity_editor_info);
+        mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        mWebView.getSettings().setJavaScriptEnabled(true);  // 设置支持 JavaScript
     }
 
 
@@ -85,29 +71,8 @@ public class EditorInfoActivity extends BaseActivity {
 
     private void loadData() {
 
-        RetrofitHelper.getZhiHuAPI()
-                .getEditorPage(String.valueOf(editorID))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.i(TAG, "onCompleted: --- 获取主编信息成功 ---");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                        Log.i(TAG, "onError: --- 获取主编信息失败 ---");
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onNext(String s) {
-                        Log.i(TAG, "onNext: "+s);
-                    }
-                });
-
+        String url = ApiConstants.ZHIHU_BASE_URL + "api/4/editor/"+ editorID + "/profile-page/android";
+        mWebView.loadUrl(url);
     }
 
 
