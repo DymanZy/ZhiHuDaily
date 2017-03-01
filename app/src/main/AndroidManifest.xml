@@ -59,7 +59,10 @@
             android:name=".module.common.SettingActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
+        <activity
+            android:name=".module.user.EditorInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

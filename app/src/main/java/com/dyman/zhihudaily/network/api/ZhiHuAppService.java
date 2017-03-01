@@ -153,12 +153,12 @@ public interface ZhiHuAppService {
     Observable<SectionBeforeInfo> getSectionBeforeInfo(@Path("section_id") String section_id,
                                                        @Path("timestamp") String timestamp);
 
-//    /**
-//     *  查看Editor的主页
-//     * @param editor_id 编辑对应的ID
-//     * @return
-//     */
-//    @GET("api/4/editor/{editor_id}/profile-page/android")
-
+    /**
+     *  查看Editor的主页
+     * @param editor_id 编辑对应的ID
+     * @return
+     */
+    @GET("api/4/editor/{editor_id}/profile-page/android")
+    Observable<String> getEditorPage(@Path("editor_id") String editor_id);
 
 }

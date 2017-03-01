@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.dyman.zhihudaily.R;
@@ -19,6 +20,7 @@ import com.dyman.zhihudaily.adapter.listener.AdapterItemClickListener;
 import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.ThemeInfo;
+import com.dyman.zhihudaily.module.user.EditorInfoActivity;
 import com.dyman.zhihudaily.network.RetrofitHelper;
 import com.dyman.zhihudaily.widget.MyImageTextLayout;
 
@@ -34,7 +36,7 @@ import rx.schedulers.Schedulers;
  *  @author dyman
  *  @since 2017/2/24 19:49
  */
-public class ThemeActivity extends BaseActivity implements AdapterItemClickListener{
+public class ThemeActivity extends BaseActivity{
 
     private static final String TAG = ThemeActivity.class.getSimpleName();
 
@@ -83,7 +85,11 @@ public class ThemeActivity extends BaseActivity implements AdapterItemClickListe
         editorAdapter.setAdapterClickListener(new AdapterItemClickListener() {
             @Override
             public void onAdapterItemClick(int position) {
-                //TODO: 转跳到查看编辑信息的页面
+                // 转跳到查看编辑信息的页面
+                int editorID = editorAdapter.getItem(position).getId();
+                Intent it = new Intent(ThemeActivity.this, EditorInfoActivity.class);
+                it.putExtra(IntentKeys.EDITOR_ID, editorID);
+                startActivity(it);
             }
         });
         editorAvatarRv.setAdapter(editorAdapter);
@@ -92,7 +98,16 @@ public class ThemeActivity extends BaseActivity implements AdapterItemClickListe
         contentRv.setLayoutManager(new LinearLayoutManager(this));
         contentRv.setItemAnimator(new DefaultItemAnimator());
         contentAdapter = new NewListAdapter(this);
-        contentAdapter.setAdapterListener(this);
+        contentAdapter.setAdapterListener(new AdapterItemClickListener() {
+            @Override
+            public void onAdapterItemClick(int position) {
+                //  转跳到查看文章的页面
+                int storyID = contentAdapter.getItem(position).getId();
+                Intent it = new Intent(ThemeActivity.this, ThemeStoryActivity.class);
+                it.putExtra(IntentKeys.STORY_ID, storyID);
+                startActivity(it);
+            }
+        });
         contentRv.setAdapter(contentAdapter);
     }
 
@@ -156,16 +171,6 @@ public class ThemeActivity extends BaseActivity implements AdapterItemClickListe
             finish();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
-    @Override
-    public void onAdapterItemClick(int position) {
-
-        int storyID = contentAdapter.getItem(position).getId();
-        Intent it = new Intent(ThemeActivity.this, ThemeStoryActivity.class);
-        it.putExtra(IntentKeys.STORY_ID, storyID);
-        startActivity(it);
     }
 
 }
