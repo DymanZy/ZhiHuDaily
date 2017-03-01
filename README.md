@@ -38,6 +38,8 @@
 
 
 
+
+
 ## Statement
 
 该项目仅供交流学习使用， 如果该项目有侵犯知乎日报版权问题，本人会及时删除此页面与整个项目。
@@ -51,6 +53,9 @@
 - [retrofit](https://github.com/square/retrofit)
 - [ConvenientBanner](https://github.com/saiwu-bigkoo/Android-ConvenientBanner)
 - [CircleImageView](https://github.com/hdodenhof/CircleImageView)
+- [MarkdownView](https://github.com/falnatsheh/MarkdownView)
+
+
 
 
 
