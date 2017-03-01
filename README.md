@@ -25,13 +25,7 @@
 
 ## Screenshots
 
-<a href="art/08.png"><img src="art/08.png" width="30%"/></a> <a href="art/09.png"><img src="art/09.png" width="30%"/></a> <a href="art/10.png"><img src="art/10.png" width="30%"/></a> <a href="art/11.png"><img src="art/11.png" width="30%"/></a> <a href="art/00.png"><img src="art/00.png" width="30%"/></a> <a href="art/01.png"><img src="art/01.png" width="30%"/></a> <a href="art/02.png"><img src="art/02.png" width="30%"/></a>
-
-<a href="art/03.png"><img src="art/03.png" width="30%"/></a> <a href="art/04.png"><img src="art/04.png" width="30%"/></a> <a href="art/05.png"><img src="art/05.png" width="30%"/></a>
-
-<a href="art/06.png"><img src="art/06.png" width="30%"/></a>
-
-<a href="art/07.png"><img src="art/07.png" width="30%"/></a>
+<a href="art/08.png"><img src="art/08.png" width="30%"/></a> <a href="art/09.png"><img src="art/09.png" width="30%"/></a> <a href="art/10.png"><img src="art/10.png" width="30%"/></a> <a href="art/11.png"><img src="art/11.png" width="30%"/></a> <a href="art/00.png"><img src="art/00.png" width="30%"/></a> <a href="art/01.png"><img src="art/01.png" width="30%"/></a> <a href="art/02.png"><img src="art/02.png" width="30%"/></a> <a href="art/03.png"><img src="art/03.png" width="30%"/></a> <a href="art/04.png"><img src="art/04.png" width="30%"/></a> <a href="art/05.png"><img src="art/05.png" width="30%"/></a> <a href="art/06.png"><img src="art/06.png" width="30%"/></a> <a href="art/07.png"><img src="art/07.png" width="30%"/></a>
 
 ## Instructions
 
