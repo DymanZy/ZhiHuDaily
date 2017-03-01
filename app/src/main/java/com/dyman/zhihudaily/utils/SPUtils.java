@@ -9,5 +9,4 @@ package com.dyman.zhihudaily.utils;
 public class SPUtils {
 
     private static final String SP_NAME = "zhi_hu_daily";
-
 }

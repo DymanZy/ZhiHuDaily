@@ -1,5 +1,6 @@
 package com.dyman.zhihudaily.module.news;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -18,6 +19,7 @@ import com.dyman.zhihudaily.adapter.listener.AdapterItemClickListener;
 import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.CommentsInfo;
+import com.dyman.zhihudaily.module.common.LoginActivity;
 import com.dyman.zhihudaily.network.RetrofitHelper;
 import com.dyman.zhihudaily.utils.DialogUtils;
 import com.dyman.zhihudaily.utils.common.DividerItemDecoration;
@@ -193,7 +195,7 @@ public class CommentActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.action_edit_comment:
-                ToastUtil.ShortToast("编写评论");
+                startActivity(new Intent(CommentActivity.this, LoginActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

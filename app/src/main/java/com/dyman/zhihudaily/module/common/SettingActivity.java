@@ -1,15 +1,24 @@
 package com.dyman.zhihudaily.module.common;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.base.BaseActivity;
+import com.dyman.zhihudaily.module.section.SectionActivity;
+import com.dyman.zhihudaily.utils.common.ToastUtil;
 
-public class SettingActivity extends BaseActivity {
+public class SettingActivity extends BaseActivity implements View.OnClickListener{
+
+    private static final String TAG = SectionActivity.class.getSimpleName();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +26,8 @@ public class SettingActivity extends BaseActivity {
         setContentView(R.layout.activity_setting);
 
         initToolbar();
+        initView();
+
     }
 
 
@@ -32,6 +43,14 @@ public class SettingActivity extends BaseActivity {
     }
 
 
+    private void initView() {
+
+        findViewById(R.id.clearCache_rl_content_setting).setOnClickListener(this);
+        findViewById(R.id.checkVersion_ll_content_setting).setOnClickListener(this);
+        findViewById(R.id.feedback_ll_content_setting).setOnClickListener(this);
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -41,4 +60,19 @@ public class SettingActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.clearCache_rl_content_setting:
+                ToastUtil.ShortToast("清除缓存");
+                break;
+            case R.id.checkVersion_ll_content_setting:
+                ToastUtil.ShortToast("现在已经是最新版本");
+                break;
+            case R.id.feedback_ll_content_setting:
+                startActivity(new Intent(SettingActivity.this, LoginActivity.class));
+                break;
+        }
+    }
 }
