@@ -173,7 +173,7 @@ public class MainActivity extends BaseActivity
                 break;
             case R.id.nav_about_author:
                 // 关于作者
-                ToastUtil.ShortToast("有待完善");
+                startActivity(new Intent(MainActivity.this, AboutActivity.class));
                 break;
         }
 
