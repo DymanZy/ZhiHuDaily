@@ -9,12 +9,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.bumptech.glide.Glide;
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.ZhiHuDailyApp;
 import com.dyman.zhihudaily.adapter.listener.AdapterItemClickListener;
@@ -24,6 +27,8 @@ import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.NewsLatestInfo;
 import com.dyman.zhihudaily.module.news.NewsDetailActivity;
 import com.dyman.zhihudaily.network.RetrofitHelper;
+import com.dyman.zhihudaily.utils.SPUtils;
+import com.dyman.zhihudaily.utils.common.TimeUtil;
 import com.dyman.zhihudaily.utils.common.ToastUtil;
 import com.dyman.zhihudaily.widget.MyImageTextLayoutHolderView;
 
@@ -59,6 +64,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
     private NewListAdapter adapter;
 
     private NewsLatestInfo newsInfo;
+
 
     private Handler mHandler = new Handler(){
         @Override
@@ -185,6 +191,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         // 开始自动翻页
         mConvenientBanner.startTurning(4000);
     }
+
 
 
     /**

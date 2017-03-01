@@ -28,6 +28,7 @@ import com.dyman.zhihudaily.entity.NewsDetailInfo;
 import com.dyman.zhihudaily.entity.StoryExtraInfo;
 import com.dyman.zhihudaily.module.common.LoginActivity;
 import com.dyman.zhihudaily.network.RetrofitHelper;
+import com.dyman.zhihudaily.utils.SPUtils;
 import com.dyman.zhihudaily.utils.common.DisplayUtil;
 import com.dyman.zhihudaily.utils.common.SnackbarUtil;
 import com.dyman.zhihudaily.utils.common.WebUtils;
@@ -61,6 +62,8 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
     private float statusHeight = 0f;
     /** 文章的阅读进度 */
     private double readRatio = 0;
+
+    private NewsDetailInfo newInfo;
 
 
     @Override
@@ -145,6 +148,7 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
                     @Override
                     public void onNext(NewsDetailInfo info) {
                         // TODO: update UI
+                        newInfo = info;
                         showHtml(info);
                         bindHeaderViewData(info.getTitle(), info.getImage(), info.getImage_source());
                     }
@@ -212,7 +216,7 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
         if (readSchedule != null) {
 
             readRatio = Double.parseDouble(readSchedule.getReadRatio());
-            if (readRatio == 1.0) return;
+            if (readRatio >= 0.98) return;
 
             Log.i(TAG, "setReadRecordTip: -------- 上一次阅读进度为: " + readRatio);
             Snackbar.make(mScrollView, "上次阅读进度为 "+ readRatio*100+"%", Snackbar.LENGTH_LONG)
@@ -352,7 +356,6 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
         readSchedule.setArticleID(String.valueOf(newsID));
         readSchedule.setReadTime(String.valueOf(System.currentTimeMillis()));
         readSchedule.setReadRatio(String.valueOf(readRatio));
-
         TableOperate.insertReadSchedule(readSchedule);
     }
 }

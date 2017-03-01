@@ -23,6 +23,7 @@ import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.NewsDetailInfo;
 import com.dyman.zhihudaily.entity.StoryExtraInfo;
 import com.dyman.zhihudaily.entity.ThemeStoryInfo;
+import com.dyman.zhihudaily.module.common.LoginActivity;
 import com.dyman.zhihudaily.module.news.CommentActivity;
 import com.dyman.zhihudaily.module.news.NewsDetailActivity;
 import com.dyman.zhihudaily.network.RetrofitHelper;
@@ -210,7 +211,7 @@ public class ThemeStoryActivity extends BaseActivity implements View.OnClickList
                 ToastUtil.ShortToast("点击了分享");
                 break;
             case R.id.collect_iv_status:
-
+                startActivity(new Intent(ThemeStoryActivity.this, LoginActivity.class));
                 break;
             case R.id.comment_iv_status:
                 Intent it = new Intent(ThemeStoryActivity.this, CommentActivity.class);
@@ -218,7 +219,7 @@ public class ThemeStoryActivity extends BaseActivity implements View.OnClickList
                 startActivity(it);
                 break;
             case R.id.mark_iv_status:
-
+                startActivity(new Intent(ThemeStoryActivity.this, LoginActivity.class));
                 break;
         }
     }
