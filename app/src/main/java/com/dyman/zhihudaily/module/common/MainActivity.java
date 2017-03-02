@@ -16,6 +16,7 @@ import android.view.View;
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.module.home.HomePageFragment;
+import com.dyman.zhihudaily.module.home.MainPageFragment;
 import com.dyman.zhihudaily.module.news.NewsDetailActivity;
 import com.dyman.zhihudaily.module.section.SectionTotalFragment;
 import com.dyman.zhihudaily.module.theme.ThemeListFragment;
@@ -34,7 +35,10 @@ public class MainActivity extends BaseActivity
 
     private long exitTime;
 
-    private HomePageFragment mHomePageFragment;
+//    private HomePageFragment mHomePageFragment;
+
+    private MainPageFragment mainPageFragment;
+
 
     private String[] titles;
 
@@ -72,18 +76,19 @@ public class MainActivity extends BaseActivity
 
     private void initFragment() {
 
-        mHomePageFragment = HomePageFragment.newInstance();
+//        mHomePageFragment = HomePageFragment.newInstance();
+        mainPageFragment = MainPageFragment.newInstance();
         ThemeListFragment mThemeListFragment = ThemeListFragment.newInstance();
         SectionTotalFragment mSectionTotalFragment = SectionTotalFragment.newInstance();
         //...
 
-        fragments = new Fragment[] {mHomePageFragment, mThemeListFragment, mSectionTotalFragment};
+        fragments = new Fragment[] {mainPageFragment, mThemeListFragment, mSectionTotalFragment};
         titles = new String[] {"ZhiHuDaily", "主题日报", "栏目总览", "过往消息"};
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.container_app_bar_main, mHomePageFragment)
-                .show(mHomePageFragment).commit();
+                .add(R.id.container_app_bar_main, mainPageFragment)
+                .show(mainPageFragment).commit();
     }
 
     /**
