@@ -32,14 +32,17 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
     private static final String TAG = MainPageFragment.class.getSimpleName();
     private static final int REFRESH_DATA = 1001;
     private static final int LOAD_MORE_DATA = 1002;
-    private boolean IS_LOADING = false;
+    private static final int LOAD_DATA_TIMEOUT = 1003;
+    private boolean IS_MORE_LOADING = false;
+
+    private String title;
+    private String mDate;
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private RecyclerView mRecyclerView;
 
     private MainPageAdapter adapter;
-
 
     private Handler handler = new Handler() {
         @Override
@@ -53,10 +56,18 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
                 case LOAD_MORE_DATA:
                     loadMoreData();
                     break;
+
+                case LOAD_DATA_TIMEOUT:
+                    // 请求超时
+                    IS_MORE_LOADING = false;
+                    //  TODO： 断开请求
+
+                    break;
             }
 
         }
     };
+
 
 
     public static MainPageFragment newInstance() {
@@ -102,12 +113,14 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                changeTitle(dy);
             }
 
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (isVisBottom(mRecyclerView) && !IS_LOADING) loadMoreData();
+                if (isVisBottom(mRecyclerView) && !IS_MORE_LOADING)
+                    handler.sendEmptyMessageDelayed(LOAD_MORE_DATA, 500);
             }
         });
 
@@ -143,6 +156,7 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
                                    swipeRefreshLayout.setRefreshing(false);
                                    ToastUtil.ShortToast("数据加载成功");
                                    adapter.updateData(dataToItems(newsLatestInfo));
+                                   mDate = newsLatestInfo.getDate();
                                }
                            }
                 );
@@ -150,7 +164,33 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
 
 
     private void loadMoreData() {
+
         Log.i(TAG, "loadMoreData: ------------------- 尝试加载更多数据");
+        handler.sendEmptyMessageDelayed(LOAD_DATA_TIMEOUT, 8000);
+        RetrofitHelper.getZhiHuAPI()
+                .getNewsBeforeList(mDate)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<NewsLatestInfo>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.i(TAG, "onCompleted: ------- 加载更多数据完成 ------");
+                        IS_MORE_LOADING = false;
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        IS_MORE_LOADING = false;
+                    }
+
+                    @Override
+                    public void onNext(NewsLatestInfo info) {
+                        ToastUtil.ShortToast("加载更多数据完成");
+                        adapter.addData(dataToItems(info));
+                        mDate = info.getDate();
+                    }
+                });
     }
 
 
@@ -163,10 +203,12 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
 
         List<MainPageAdapter.Item> items = new ArrayList<>();
 
-        MainPageAdapter.Item item1 = new MainPageAdapter.Item();
-        item1.setTopStoriesList(newsLatestInfo.getTop_stories());
-        item1.setType(MainPageAdapter.Type.TYPE_HEADER);
-        items.add(item1);
+        if (newsLatestInfo.getTop_stories() != null) {
+            MainPageAdapter.Item item1 = new MainPageAdapter.Item();
+            item1.setTopStoriesList(newsLatestInfo.getTop_stories());
+            item1.setType(MainPageAdapter.Type.TYPE_HEADER);
+            items.add(item1);
+        }
 
         MainPageAdapter.Item item2 = new MainPageAdapter.Item();
         item2.setTime(newsLatestInfo.getDate());
@@ -181,6 +223,29 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
             items.add(item);
         }
         return items;
+    }
+
+
+    private int lastTitlePosition = -1;
+    /**
+     *  改变ActionBar标题
+     * @param dy
+     */
+    private void changeTitle(int dy) {
+
+        LinearLayoutManager llManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+        int position = llManager.findFirstVisibleItemPosition();
+        if (lastTitlePosition == position) {
+            return;
+        }
+        MainPageAdapter.Item item = adapter.getItem(position);
+        if (item.getType() == MainPageAdapter.Type.TYPE_HEADER) {
+            title = getString(R.string.app_name);
+        } else if (dy > 0 && item.getType() == MainPageAdapter.Type.TYPE_DATE) {
+            title = item.getTime();
+        }
+//        getSupportActionBar().setTitle(title);
+        lastTitlePosition = position;
     }
 
 

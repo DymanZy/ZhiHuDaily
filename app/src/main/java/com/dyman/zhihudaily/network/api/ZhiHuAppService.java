@@ -63,7 +63,7 @@ public interface ZhiHuAppService {
      * @return
      */
     @GET("api/4/news/before/{time}")
-    Observable<NewsBeforeInfo> getNewsBeforeList(@Path("time") String time);
+    Observable<NewsLatestInfo> getNewsBeforeList(@Path("time") String time);
 
     /**
      *  获取对应新闻的额外信息，如评论数量，所获得"赞"的数量
