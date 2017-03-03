@@ -14,6 +14,7 @@ import com.dyman.zhihudaily.base.BaseFragment;
 import com.dyman.zhihudaily.entity.NewsLatestInfo;
 import com.dyman.zhihudaily.entity.StoryBean;
 import com.dyman.zhihudaily.network.RetrofitHelper;
+import com.dyman.zhihudaily.network.api.ZhiHuAppService;
 import com.dyman.zhihudaily.utils.common.ToastUtil;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
     private RecyclerView mRecyclerView;
 
     private MainPageAdapter adapter;
+
 
     private Handler handler = new Handler() {
         @Override
@@ -163,34 +165,37 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
     }
 
 
+    /**
+     *  加载过往信息
+     */
     private void loadMoreData() {
 
         Log.i(TAG, "loadMoreData: ------------------- 尝试加载更多数据");
         handler.sendEmptyMessageDelayed(LOAD_DATA_TIMEOUT, 8000);
-        RetrofitHelper.getZhiHuAPI()
-                .getNewsBeforeList(mDate)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<NewsLatestInfo>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.i(TAG, "onCompleted: ------- 加载更多数据完成 ------");
-                        IS_MORE_LOADING = false;
-                    }
+        RetrofitHelper.getZhiHuAPI().getNewsBeforeList(mDate)
+             .subscribeOn(Schedulers.io())
+             .observeOn(AndroidSchedulers.mainThread())
+             .subscribe(new Observer<NewsLatestInfo>() {
+                 @Override
+                 public void onCompleted() {
+                     Log.i(TAG, "onCompleted: ------- 加载更多数据完成 ------");
+                     IS_MORE_LOADING = false;
+                 }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        IS_MORE_LOADING = false;
-                    }
+                 @Override
+                 public void onError(Throwable e) {
+                     e.printStackTrace();
+                     ToastUtil.ShortToast("加载数据失败，请检查网络情况");
+                     IS_MORE_LOADING = false;
+                 }
 
-                    @Override
-                    public void onNext(NewsLatestInfo info) {
-                        ToastUtil.ShortToast("加载更多数据完成");
-                        adapter.addData(dataToItems(info));
-                        mDate = info.getDate();
-                    }
-                });
+                 @Override
+                 public void onNext(NewsLatestInfo info) {
+                     ToastUtil.ShortToast("加载更多数据完成");
+                     adapter.addData(dataToItems(info));
+                     mDate = info.getDate();
+                 }
+             });
     }
 
 
