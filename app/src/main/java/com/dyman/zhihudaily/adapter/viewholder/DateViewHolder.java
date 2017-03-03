@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.dyman.zhihudaily.R;
+import com.dyman.zhihudaily.utils.common.DateUtil;
 
 /**
  * Created by dyman on 2017/3/2.
@@ -23,6 +24,6 @@ public class DateViewHolder extends RecyclerView.ViewHolder {
 
     public void bindDate(String date) {
 
-        dateTv.setText(date);
+        dateTv.setText(DateUtil.getMainPageDate(date));
     }
 }

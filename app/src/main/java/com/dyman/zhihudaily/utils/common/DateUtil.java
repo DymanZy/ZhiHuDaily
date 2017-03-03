@@ -3,9 +3,12 @@ package com.dyman.zhihudaily.utils.common;
 
 import android.annotation.SuppressLint;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  *  时间工具类
@@ -191,6 +194,30 @@ public class DateUtil {
     public static long dateToLong(Date date) {
 
         return date.getTime();
+    }
+
+
+    /**
+     *  时间格式友好化处理
+     * @param date
+     * @return
+     */
+    public static String getMainPageDate(String date) {
+
+        String mDate = "";
+        String today = new SimpleDateFormat("yyyyMMdd", Locale.CHINA).format(Calendar.getInstance().getTime());
+        if (today.equals(date)) {
+            return "今天";
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.CHINA);
+        try {
+            Date tmpDate = sdf.parse(date);
+            mDate = DateFormat.getDateInstance().format(tmpDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mDate;
     }
 
 }

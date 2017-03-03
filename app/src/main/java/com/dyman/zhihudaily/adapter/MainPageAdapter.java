@@ -15,6 +15,7 @@ import com.dyman.zhihudaily.entity.StoryBean;
 import com.dyman.zhihudaily.module.home.MainPageFragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -120,6 +121,24 @@ public class MainPageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public Item getItem(int position) {
         return datas.get(position);
+    }
+
+
+    /**
+     *  获取该节点前得时间标题
+     * @param position
+     * @return
+     */
+    public String getPreviousTitle(int position) {
+        List<Item> items = new ArrayList<>();
+        items.addAll(datas.subList(0, position + 1));
+        Collections.reverse(items);
+        for (Item item : items) {
+            if (item.getType() == Type.TYPE_DATE) {
+                return item.getTime();
+            }
+        }
+        return "";
     }
 
 

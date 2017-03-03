@@ -35,9 +35,10 @@ public class MainActivity extends BaseActivity
 
     private long exitTime;
 
-//    private HomePageFragment mHomePageFragment;
+    private NavigationView navigationView;
 
     private MainPageFragment mainPageFragment;
+    private boolean isInMainPage = false;
 
 
     private String[] titles;
@@ -64,7 +65,8 @@ public class MainActivity extends BaseActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         //  设置抽屉菜单监听
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.getMenu().findItem(R.id.nav_hots).setChecked(true);
         navigationView.setNavigationItemSelectedListener(this);
         //  抽屉头部控件监听
         View headerLayout = navigationView.getHeaderView(0);
@@ -89,6 +91,7 @@ public class MainActivity extends BaseActivity
                 .beginTransaction()
                 .add(R.id.container_app_bar_main, mainPageFragment)
                 .show(mainPageFragment).commit();
+        isInMainPage = true;
     }
 
     /**
@@ -122,8 +125,16 @@ public class MainActivity extends BaseActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
+            //  先退出侧滑菜单
             drawer.closeDrawer(GravityCompat.START);
+        } else if (!isInMainPage) {
+            //  再返回主界面
+            index = 0;
+            switchFragment();
+            navigationView.getMenu().findItem(R.id.nav_hots).setChecked(true);
+            getSupportActionBar().setTitle(titles[0]);
         } else {
+            //  最后退出程序
             exitAPP();
         }
     }
@@ -198,6 +209,11 @@ public class MainActivity extends BaseActivity
         }
         trx.show(fragments[index]).commit();
         currentTabIndex = index;
+        if (index == 0) {
+            isInMainPage = true;
+        } else {
+            isInMainPage = false;
+        }
     }
 
 

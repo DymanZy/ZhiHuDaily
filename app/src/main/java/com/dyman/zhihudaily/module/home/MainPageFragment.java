@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,11 +15,16 @@ import com.dyman.zhihudaily.base.BaseFragment;
 import com.dyman.zhihudaily.entity.NewsLatestInfo;
 import com.dyman.zhihudaily.entity.StoryBean;
 import com.dyman.zhihudaily.network.RetrofitHelper;
-import com.dyman.zhihudaily.network.api.ZhiHuAppService;
+import com.dyman.zhihudaily.utils.common.DateUtil;
 import com.dyman.zhihudaily.utils.common.ToastUtil;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -238,6 +244,7 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
      */
     private void changeTitle(int dy) {
 
+        Log.i(TAG, "changeTitle: --------------- dy = " + dy);
         LinearLayoutManager llManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
         int position = llManager.findFirstVisibleItemPosition();
         if (lastTitlePosition == position) {
@@ -247,9 +254,11 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
         if (item.getType() == MainPageAdapter.Type.TYPE_HEADER) {
             title = getString(R.string.app_name);
         } else if (dy > 0 && item.getType() == MainPageAdapter.Type.TYPE_DATE) {
-            title = item.getTime();
+            title = DateUtil.getMainPageDate(item.getTime());
+        } else if (dy < 0) {
+            title = DateUtil.getMainPageDate(adapter.getPreviousTitle(position));
         }
-//        getSupportActionBar().setTitle(title);
+        ((AppCompatActivity) getSupportActivity()).getSupportActionBar().setTitle(title);
         lastTitlePosition = position;
     }
 
