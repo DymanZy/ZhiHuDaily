@@ -30,7 +30,7 @@ public class AboutActivity extends BaseActivity {
     private void initToolbar() {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("关于");
+        toolbar.setTitle(getString(R.string.str_about));
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         if (actionbar != null) {

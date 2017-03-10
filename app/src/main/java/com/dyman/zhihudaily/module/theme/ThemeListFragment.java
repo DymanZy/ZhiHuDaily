@@ -94,7 +94,7 @@ public class ThemeListFragment extends BaseFragment implements AdapterItemClickL
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtil.ShortToast("加载数据失败");
+                        ToastUtil.ShortToast(getString(R.string.str_date_load_failure));
                         emptyView.setVisibility(View.VISIBLE);
                     }
 

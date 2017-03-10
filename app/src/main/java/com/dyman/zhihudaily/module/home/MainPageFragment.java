@@ -154,7 +154,7 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
                                public void onError(Throwable e) {
 
                                    swipeRefreshLayout.setRefreshing(false);
-                                   ToastUtil.ShortToast("数据加载失败");
+                                   ToastUtil.ShortToast(getString(R.string.str_date_load_failure));
                                    e.printStackTrace();
                                }
 
@@ -162,7 +162,7 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
                                public void onNext(NewsLatestInfo newsLatestInfo) {
 
                                    swipeRefreshLayout.setRefreshing(false);
-                                   ToastUtil.ShortToast("数据加载成功");
+                                   ToastUtil.ShortToast(getString(R.string.str_date_load_success));
                                    adapter.updateData(dataToItems(newsLatestInfo));
                                    mDate = newsLatestInfo.getDate();
                                }
@@ -191,13 +191,13 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
                  @Override
                  public void onError(Throwable e) {
                      e.printStackTrace();
-                     ToastUtil.ShortToast("加载数据失败，请检查网络情况");
+                     ToastUtil.ShortToast(getString(R.string.str_date_load_failure_check_network));
                      IS_MORE_LOADING = false;
                  }
 
                  @Override
                  public void onNext(NewsLatestInfo info) {
-                     ToastUtil.ShortToast("加载更多数据完成");
+                     ToastUtil.ShortToast(getString(R.string.str_date_more_load_success));
                      adapter.addData(dataToItems(info));
                      mDate = info.getDate();
                  }

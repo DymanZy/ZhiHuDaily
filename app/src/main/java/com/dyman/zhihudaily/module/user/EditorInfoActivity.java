@@ -46,7 +46,7 @@ public class EditorInfoActivity extends BaseActivity {
     private void initToolbar() {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("主编资料");
+        toolbar.setTitle(getString(R.string.str_editor_info));
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

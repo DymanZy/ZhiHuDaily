@@ -15,6 +15,7 @@
     <string name="weibo_tencent">腾讯微博</string>
     <string name="app_statement">知乎日报不会未经同意通过你的微博账号发布任何信息</string>
     <string name="str_editor">主编</string>
+    <string name="str_editor_info">主编资料</string>
     <string name="str_new_info">最新消息</string>
     <string name="login_please">请登录</string>
     <string name="my_collect">我的收藏</string>
@@ -50,5 +51,32 @@
     <string name="dialog_report">举报</string>
     <string name="dialog_copy">复制</string>
     <string name="dialog_reply">回复</string>
+
+
+    <string name="str_agree">点赞 </string>
+    <string name="str_pack_up">收起</string>
+    <string name="str_about">关于</string>
+    <string name="str_login">登录</string>
+    <string name="str_use_sina_login">使用新浪微博接口登录</string>
+    <string name="str_use_tencent_login">使用腾讯微博接口登录</string>
+    <string name="str_exit_when_press_again">再按一次退出</string>
+    <string name="str_setting">设置</string>
+    <string name="str_current_is_latest_version">现在已经是最新版本</string>
+    <string name="str_date_load_success">数据加载成功</string>
+    <string name="str_date_load_failure">数据加载失败</string>
+    <string name="str_date_load_failure_check_network">数据加载失败，请检查网络情况</string>
+    <string name="str_date_more_load_success">加载更多数据完成</string>
+    <string name="str_get_story_extra_failure">无法获取文章额外数据</string>
+    <string name="str_welcome_back">欢迎回来！</string>
+    <string name="str_pre_read_schedule">上次阅读进度为 </string>
+    <string name="str_spread">展开</string>
+    <string name="str_spread">展开</string>
+    <string name="str_spread">展开</string>
+    <string name="str_spread">展开</string>
+    <string name="str_spread">展开</string>
+    <string name="str_spread">展开</string>
+    <string name="str_spread">展开</string>
+    <string name="str_spread">展开</string>
+    <string name="str_spread">展开</string>
 
 </resources>

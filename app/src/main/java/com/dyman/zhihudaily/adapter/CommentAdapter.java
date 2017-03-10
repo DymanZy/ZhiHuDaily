@@ -56,7 +56,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         CommentsInfo.CommentsBean commentsBean = datas.get(position);
 
         holder.userNameTv.setText(commentsBean.getAuthor());
-        holder.markNumsTv.setText("点赞 " + String.valueOf(commentsBean.getLikes()));
+        holder.markNumsTv.setText(context.getString(R.string.str_agree) + String.valueOf(commentsBean.getLikes()));
         holder.contentTv.setText(commentsBean.getContent());
         holder.timeTv.setText(TimeUtil.parseDateTime(commentsBean.getTime()));
         Glide.with(context).load(commentsBean.getAvatar()).into(holder.circleImageView);
@@ -151,11 +151,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
                 public void onClick(View v) {
                     if (spreadReplyBtn.isSelected()) {
                         spreadReplyBtn.setSelected(false);
-                        spreadReplyBtn.setText("收起");
+                        spreadReplyBtn.setText(context.getString(R.string.str_pack_up));
                         replyTv.setMaxLines(10);
                     } else {
                         spreadReplyBtn.setSelected(true);
-                        spreadReplyBtn.setText("展开");
+                        spreadReplyBtn.setText(context.getString(R.string.str_spread));
                         replyTv.setMaxLines(2);
                     }
                 }

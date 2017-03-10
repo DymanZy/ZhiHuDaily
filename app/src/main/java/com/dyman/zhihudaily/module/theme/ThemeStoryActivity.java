@@ -157,7 +157,7 @@ public class ThemeStoryActivity extends BaseActivity implements View.OnClickList
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtil.ShortToast("无法获取文章额外数据");
+                        ToastUtil.ShortToast(getString(R.string.str_get_story_extra_failure));
                         e.printStackTrace();
                     }
 

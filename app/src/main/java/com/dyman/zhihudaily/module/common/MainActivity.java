@@ -237,7 +237,7 @@ public class MainActivity extends BaseActivity
     private void exitAPP() {
 
         if (System.currentTimeMillis() - exitTime > 2000) {
-            ToastUtil.ShortToast("再按一次退出");
+            ToastUtil.ShortToast(getString(R.string.str_exit_when_press_again));
             exitTime = System.currentTimeMillis();
         } else {
             finish();

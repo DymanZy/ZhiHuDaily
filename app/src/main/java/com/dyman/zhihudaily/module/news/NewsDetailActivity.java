@@ -141,7 +141,7 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtil.ShortToast("加载数据失败");
+                        ToastUtil.ShortToast(getString(R.string.str_date_load_failure));
                         e.printStackTrace();
                     }
 
@@ -166,7 +166,7 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtil.ShortToast("无法获取文章额外数据");
+                        ToastUtil.ShortToast(getString(R.string.str_get_story_extra_failure));
                         e.printStackTrace();
                     }
 
@@ -219,7 +219,7 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
             if (readRatio >= 0.98) return;
 
             Log.i(TAG, "setReadRecordTip: -------- 上一次阅读进度为: " + readRatio);
-            Snackbar.make(mScrollView, "上次阅读进度为 "+ readRatio*100+"%", Snackbar.LENGTH_LONG)
+            Snackbar.make(mScrollView, getString(R.string.str_pre_read_schedule)+ readRatio*100+"%", Snackbar.LENGTH_LONG)
                     .setAction("转跳", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -227,7 +227,7 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
                             double y = contentView.getMeasuredHeight() * readRatio;
                             int scrollY = (new Double(y)).intValue() - mScrollView.getHeight();
                             mScrollView.smoothScrollTo(0, scrollY);//   顺滑滚动
-                            ToastUtil.ShortToast("欢迎回来!");
+                            ToastUtil.ShortToast(getString(R.string.str_welcome_back));
                         }
                     }).show();
         } else {

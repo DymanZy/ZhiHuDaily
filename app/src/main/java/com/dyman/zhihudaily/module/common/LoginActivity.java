@@ -25,7 +25,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
     private void initToolbar() {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("登录");
+        toolbar.setTitle(getString(R.string.str_login));
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -55,11 +55,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sina_ll_activity_login:
-                ToastUtil.ShortToast("使用新浪微博接口登录");
+                ToastUtil.ShortToast(getString(R.string.str_use_sina_login));
                 break;
 
             case R.id.tencent_ll_activity_login:
-                ToastUtil.ShortToast("使用腾讯微博接口登录");
+                ToastUtil.ShortToast(getString(R.string.str_use_tencent_login));
                 break;
         }
     }
