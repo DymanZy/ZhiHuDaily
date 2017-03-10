@@ -5,26 +5,26 @@
         <item
             android:id="@+id/nav_hots"
             android:icon="@drawable/ic_menu_camera"
-            android:title="最新消息"/>
+            android:title="@string/drawer_new_info"/>
         <item
             android:id="@+id/nav_themes"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="主题日报"/>
+            android:title="@string/drawer_theme_daily"/>
         <item
             android:id="@+id/nav_sections"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="栏目总览"/>
+            android:title="@string/drawer_sections"/>
     </group>
 
-    <item android:title="通用">
+    <item android:title="@string/drawer_command">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="分享软件"/>
+                android:title="@string/drawer_command"/>
             <item
                 android:id="@+id/nav_about_author"
-                android:title="关于"/>
+                android:title="@string/drawer_about"/>
         </menu>
     </item>
 

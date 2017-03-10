@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="15dp"
-            android:text="请登录"
+            android:text="@string/login_please"
             android:textSize="16sp"
             android:textColor="@color/white"/>
     </LinearLayout>
@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:text="我的收藏"
+                android:text="@string/my_collect"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"/>
         </LinearLayout>
         <LinearLayout
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:text="离线下载"
+                android:text="@string/download_offline"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"/>
         </LinearLayout>
     </LinearLayout>

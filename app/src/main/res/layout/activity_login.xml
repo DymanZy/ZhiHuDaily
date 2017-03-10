@@ -23,7 +23,7 @@
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/textView_activity_login"
             android:layout_marginBottom="100dp"
-            android:text="知乎日报"
+            android:text="@string/zhihuribao"
             android:textSize="30sp"
             android:textColor="@color/white"/>
 
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="使用微博登录"
+            android:text="@string/login_by_weibo"
             android:textSize="18sp"
             android:textColor="@color/white_light"/>
 
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="新浪微博"
+                android:text="@string/weibo_sina"
                 android:textSize="16sp"/>
         </RelativeLayout>
 
@@ -84,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="腾讯微博"
+                android:text="@string/weibo_tencent"
                 android:textSize="16sp"/>
         </RelativeLayout>
 
@@ -94,7 +94,7 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="30dp"
-            android:text="知乎日报不会未经同意通过你的微博账号发布任何信息"
+            android:text="@string/app_statement"
             android:textColor="@color/white_light"/>
     </RelativeLayout>
 

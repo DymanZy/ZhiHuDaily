@@ -38,12 +38,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dyman"
+                        android:text="@string/author_name"
                         android:textSize="20sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="GitHub: https://github.com/DymanZy"/>
+                        android:text="@string/github"/>
                 </LinearLayout>
             </LinearLayout>
 

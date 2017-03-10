@@ -22,6 +22,6 @@
         android:layout_below="@+id/image_view_empty"
         android:layout_marginTop="20dp"
         android:textColor="@color/cut_off"
-        android:text="现在还没有评论"/>
+        android:text="@string/has_no_comment"/>
 
 </RelativeLayout>

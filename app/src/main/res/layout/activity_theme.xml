@@ -32,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="主编"/>
+                    android:text="@string/str_editor"/>
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/editorAvatar_rv_activity_theme"
                     android:layout_width="match_parent"

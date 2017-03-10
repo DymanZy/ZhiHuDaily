@@ -15,7 +15,7 @@
         android:clickable="true"
         android:foreground="?android:selectableItemBackground"
         android:textColor="@color/black"
-        android:text="赞同"/>
+        android:text="@string/dialog_agree"/>
     <TextView
         android:id="@+id/report_dialog_comment"
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
         android:paddingBottom="15dp"
         android:paddingLeft="30dp"
         android:textColor="@color/black"
-        android:text="举报"/>
+        android:text="@string/dialog_report"/>
     <TextView
         android:id="@+id/copy_dialog_comment"
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
         android:clickable="true"
         android:foreground="?android:selectableItemBackground"
         android:textColor="@color/black"
-        android:text="复制"/>
+        android:text="@string/dialog_copy"/>
     <TextView
         android:id="@+id/reply_dialog_comment"
         android:layout_width="match_parent"
@@ -48,6 +48,6 @@
         android:clickable="true"
         android:foreground="?android:selectableItemBackground"
         android:textColor="@color/black"
-        android:text="回复"/>
+        android:text="@string/dialog_reply"/>
 
 </LinearLayout>

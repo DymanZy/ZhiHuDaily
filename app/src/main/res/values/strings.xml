@@ -6,4 +6,49 @@
 
     <string name="action_settings">设置选项</string>
     <string name="mode_night"> 夜间模式</string>
+
+    <string name="author_name">Dyman</string>
+    <string name="github">GitHub: https://github.com/DymanZy</string>
+    <string name="zhihuribao">知乎日报</string>
+    <string name="login_by_weibo">使用微博登录</string>
+    <string name="weibo_sina">新浪微博</string>
+    <string name="weibo_tencent">腾讯微博</string>
+    <string name="app_statement">知乎日报不会未经同意通过你的微博账号发布任何信息</string>
+    <string name="str_editor">主编</string>
+    <string name="str_new_info">最新消息</string>
+    <string name="login_please">请登录</string>
+    <string name="my_collect">我的收藏</string>
+    <string name="download_offline">离线下载</string>
+    <string name="has_no_comment">现在还没有评论</string>
+
+
+    <string name="drawer_new_info">最新消息</string>
+    <string name="drawer_theme_daily">主题日报</string>
+    <string name="drawer_sections">栏目总览</string>
+    <string name="drawer_command">通用</string>
+    <string name="drawer_share">分享软件</string>
+    <string name="drawer_about">关于</string>
+
+
+    <string name="setting_general">常规</string>
+    <string name="setting_auto_download_offline">自动离线下载</string>
+    <string name="setting_auto_download_only_connect_wifi">仅Wi-Fi下可用，自动下载最新内容</string>
+    <string name="setting_no_image_mode">无图模式</string>
+    <string name="setting_no_image_under_mobile_network">2G/3G网络下不下载图片</string>
+    <string name="setting_big_text_size">大字号</string>
+    <string name="setting_other">其他</string>
+    <string name="setting_push_info">推送消息</string>
+    <string name="setting_comment_share_to_weibo">点评分享到微博</string>
+    <string name="setting_clear_cache">清除缓存</string>
+    <string name="setting_check_update">检查更新</string>
+    <string name="setting_version_info">版本： 2.6.2(763)</string>
+    <string name="setting_feedback">反馈</string>
+    <string name="setting_feedback_info">意见反馈</string>
+
+
+    <string name="dialog_agree">赞同</string>
+    <string name="dialog_report">举报</string>
+    <string name="dialog_copy">复制</string>
+    <string name="dialog_reply">回复</string>
+
 </resources>

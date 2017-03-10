@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="常规"/>
+            android:text="@string/setting_general"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -30,12 +30,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="自动离线下载"
+                    android:text="@string/setting_auto_download_offline"
                     android:textColor="@color/black"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="仅 Wi-Fi 下可用 , 自动下载最新内容"
+                    android:text="@string/setting_auto_download_only_connect_wifi"
                     android:textColor="@color/black_light"/>
             </LinearLayout>
             <CheckBox
@@ -64,12 +64,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="无图模式"
+                    android:text="@string/setting_no_image_mode"
                     android:textColor="@color/black"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2G/3G 网络下不下载图片"
+                    android:text="@string/setting_no_image_under_mobile_network"
                     android:textColor="@color/black_light"/>
             </LinearLayout>
             <CheckBox
@@ -92,7 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="大字号"
+                    android:text="@string/setting_big_text_size"
                     android:textColor="@color/black"/>
             <CheckBox
                 android:layout_width="wrap_content"
@@ -108,7 +108,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:layout_marginTop="10dp"
-            android:text="其它"/>
+            android:text="@string/setting_other"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -117,7 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="推送消息"
+                android:text="@string/setting_push_info"
                 android:textColor="@color/black"/>
             <CheckBox
                 android:layout_width="wrap_content"
@@ -139,7 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="点评分享到微博"
+                android:text="@string/setting_comment_share_to_weibo"
                 android:textColor="@color/black"/>
             <CheckBox
                 android:layout_width="wrap_content"
@@ -164,7 +164,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="清除缓存"
+                android:text="@string/setting_clear_cache"
                 android:textColor="@color/black"/>
         </RelativeLayout>
         <TextView
@@ -183,19 +183,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="检查更新"
+                android:text="@string/setting_check_update"
                 android:textColor="@color/black"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="版本 : 2.6.2(763)"/>
+                android:text="@string/setting_version_info"/>
         </LinearLayout>
 
         <!-- 反馈 -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="反馈"
+            android:text="@string/setting_feedback"
             android:layout_marginTop="10dp"
             android:padding="10dp"/>
         <LinearLayout
@@ -209,7 +209,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="意见反馈"
+                android:text="@string/setting_feedback_info"
                 android:textColor="@color/black"/>
         </LinearLayout>
 
