@@ -155,7 +155,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
                                public void onError(Throwable e) {
 
                                    mSwipeRefreshLayout.setRefreshing(false);
-                                   ToastUtil.ShortToast("数据加载失败");
+                                   ToastUtil.ShortToast(getString(R.string.str_date_load_failure));
                                    e.printStackTrace();
                                }
 
@@ -163,7 +163,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
                                public void onNext(NewsLatestInfo newsLatestInfo) {
 
                                    mSwipeRefreshLayout.setRefreshing(false);
-                                   ToastUtil.ShortToast("数据加载成功");
+                                   ToastUtil.ShortToast(getString(R.string.str_date_load_success));
                                    newsInfo = newsLatestInfo;
                                    updateConvenientBanner(newsInfo.getTop_stories());
                                    adapter.updateAdapter(newsInfo.getStories());
