@@ -22,6 +22,7 @@ import com.dyman.zhihudaily.entity.CommentsInfo;
 import com.dyman.zhihudaily.module.common.LoginActivity;
 import com.dyman.zhihudaily.network.RetrofitHelper;
 import com.dyman.zhihudaily.utils.DialogUtils;
+import com.dyman.zhihudaily.utils.common.CommonUtil;
 import com.dyman.zhihudaily.utils.common.DividerItemDecoration;
 import com.dyman.zhihudaily.utils.common.ToastUtil;
 import com.dyman.zhihudaily.widget.MyEmptyView;
@@ -118,6 +119,11 @@ public class CommentActivity extends BaseActivity {
 
 
     private void loadData() {
+
+        if (!CommonUtil.isNetworkAvailable(ZhiHuDailyApp.getInstance())) {
+            ToastUtil.ShortToast(getString(R.string.str_network_not_available));
+            return;
+        }
 
         RetrofitHelper.getZhiHuAPI()
                 .getCommentsLong(String.valueOf(newID))

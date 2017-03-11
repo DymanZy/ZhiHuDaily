@@ -15,9 +15,7 @@ import android.view.View;
 
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.base.BaseActivity;
-import com.dyman.zhihudaily.module.home.HomePageFragment;
 import com.dyman.zhihudaily.module.home.MainPageFragment;
-import com.dyman.zhihudaily.module.news.NewsDetailActivity;
 import com.dyman.zhihudaily.module.section.SectionTotalFragment;
 import com.dyman.zhihudaily.module.theme.ThemeListFragment;
 import com.dyman.zhihudaily.utils.common.ToastUtil;
@@ -78,7 +76,6 @@ public class MainActivity extends BaseActivity
 
     private void initFragment() {
 
-//        mHomePageFragment = HomePageFragment.newInstance();
         mainPageFragment = MainPageFragment.newInstance();
         ThemeListFragment mThemeListFragment = ThemeListFragment.newInstance();
         SectionTotalFragment mSectionTotalFragment = SectionTotalFragment.newInstance();

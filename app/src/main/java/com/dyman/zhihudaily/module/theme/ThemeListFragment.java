@@ -9,12 +9,14 @@ import android.util.Log;
 import android.view.View;
 
 import com.dyman.zhihudaily.R;
+import com.dyman.zhihudaily.ZhiHuDailyApp;
 import com.dyman.zhihudaily.adapter.ThemeAdapter;
 import com.dyman.zhihudaily.adapter.listener.AdapterItemClickListener;
 import com.dyman.zhihudaily.base.BaseFragment;
 import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.ThemeListInfo;
 import com.dyman.zhihudaily.network.RetrofitHelper;
+import com.dyman.zhihudaily.utils.common.CommonUtil;
 import com.dyman.zhihudaily.utils.common.ToastUtil;
 import com.dyman.zhihudaily.widget.MyEmptyView;
 
@@ -81,6 +83,11 @@ public class ThemeListFragment extends BaseFragment implements AdapterItemClickL
 
     @Override
     public void loadData() {
+
+        if (!CommonUtil.isNetworkAvailable(ZhiHuDailyApp.getInstance())) {
+            ToastUtil.ShortToast(getString(R.string.str_network_not_available));
+            return;
+        }
 
         RetrofitHelper.getZhiHuAPI()
                 .getThemesList()

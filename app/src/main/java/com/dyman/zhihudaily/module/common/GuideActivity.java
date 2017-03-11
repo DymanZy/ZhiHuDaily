@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.adapter.GuideViewPagerAdapter;
 import com.dyman.zhihudaily.database.db.DataBaseInit;
+import com.dyman.zhihudaily.utils.SPUtils;
 import com.dyman.zhihudaily.utils.common.SystemUiVisibilityUtil;
 
 import java.util.ArrayList;
@@ -130,8 +131,8 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     private void enterMainActivity() {
 
         startActivity(new Intent(GuideActivity.this, MainActivity.class));
-        // TODO: 在 SharedPreference 中保存记录
-
+        // 在 SharedPreference 中保存记录
+        SPUtils.alreadyOpen();
         finish();
     }
 

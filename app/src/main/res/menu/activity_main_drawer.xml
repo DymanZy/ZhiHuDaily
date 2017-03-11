@@ -21,7 +21,7 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="@string/drawer_command"/>
+                android:title="@string/drawer_share"/>
             <item
                 android:id="@+id/nav_about_author"
                 android:title="@string/drawer_about"/>

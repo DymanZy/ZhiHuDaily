@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.base.BaseActivity;
+import com.dyman.zhihudaily.utils.SPUtils;
 import com.dyman.zhihudaily.utils.common.SystemUiVisibilityUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -42,7 +43,11 @@ public class SplashActivity extends AppCompatActivity {
 
     private void finishTask() {
 
-        startActivity(new Intent(SplashActivity.this, GuideActivity.class));
+        if(SPUtils.isFirstOpen()) {
+            startActivity(new Intent(SplashActivity.this, GuideActivity.class));
+        } else {
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        }
 
         SplashActivity.this.finish();
     }

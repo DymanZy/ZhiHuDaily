@@ -1,7 +1,6 @@
 package com.dyman.zhihudaily.module.news;
 
 import android.content.Intent;
-import android.icu.text.DecimalFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -12,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -22,15 +20,13 @@ import com.dyman.zhihudaily.ZhiHuDailyApp;
 import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.database.dao.ReadSchedule;
-import com.dyman.zhihudaily.database.db.DataBaseInit;
 import com.dyman.zhihudaily.database.tool.TableOperate;
 import com.dyman.zhihudaily.entity.NewsDetailInfo;
 import com.dyman.zhihudaily.entity.StoryExtraInfo;
 import com.dyman.zhihudaily.module.common.LoginActivity;
 import com.dyman.zhihudaily.network.RetrofitHelper;
-import com.dyman.zhihudaily.utils.SPUtils;
+import com.dyman.zhihudaily.utils.common.CommonUtil;
 import com.dyman.zhihudaily.utils.common.DisplayUtil;
-import com.dyman.zhihudaily.utils.common.SnackbarUtil;
 import com.dyman.zhihudaily.utils.common.WebUtils;
 import com.dyman.zhihudaily.utils.helper.ScrollPullDownHelper;
 import com.dyman.zhihudaily.utils.common.ToastUtil;
@@ -41,10 +37,10 @@ import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
+public class StoryDetailActivity extends BaseActivity implements ViewTreeObserver
         .OnScrollChangedListener, View.OnClickListener{
 
-    private static final String TAG = NewsDetailActivity.class.getSimpleName();
+    private static final String TAG = StoryDetailActivity.class.getSimpleName();
     /** 新闻ID */
     private int newsID;
     /** 新闻背景控件 */
@@ -127,6 +123,11 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
 
     private void loadData(String newsID) {
 
+        if (!CommonUtil.isNetworkAvailable(ZhiHuDailyApp.getInstance())) {
+            ToastUtil.ShortToast(getString(R.string.str_network_not_available));
+            return;
+        }
+
         Log.i(TAG, "-----------loadData: newID=" + newsID);
         RetrofitHelper.getZhiHuAPI()
                 .getNewsDetail(newsID)
@@ -187,6 +188,7 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
      */
     private void bindHeaderViewData(String title, String imageUrl, String imageSource) {
         Log.i(TAG, "----------------bindHeaderViewData is called");
+        imageTextLayout.setVisibility(View.VISIBLE);
         imageTextLayout.setTitle(title);
         Glide.with(ZhiHuDailyApp.getInstance())
                 .load(imageUrl)
@@ -245,17 +247,17 @@ public class NewsDetailActivity extends BaseActivity implements ViewTreeObserver
                 break;
 
             case R.id.collect_iv_status:
-                startActivity(new Intent(NewsDetailActivity.this, LoginActivity.class));
+                startActivity(new Intent(StoryDetailActivity.this, LoginActivity.class));
                 break;
 
             case R.id.comment_iv_status:
-                Intent it = new Intent(NewsDetailActivity.this, CommentActivity.class);
+                Intent it = new Intent(StoryDetailActivity.this, CommentActivity.class);
                 it.putExtra(IntentKeys.NEWS_ID, newsID);
                 startActivity(it);
                 break;
 
             case R.id.mark_iv_status:
-                startActivity(new Intent(NewsDetailActivity.this, LoginActivity.class));
+                startActivity(new Intent(StoryDetailActivity.this, LoginActivity.class));
                 break;
         }
     }

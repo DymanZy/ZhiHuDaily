@@ -36,7 +36,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".module.news.NewsDetailActivity"
+            android:name=".module.news.StoryDetailActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity

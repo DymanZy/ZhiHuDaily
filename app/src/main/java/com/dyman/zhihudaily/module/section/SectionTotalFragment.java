@@ -9,12 +9,15 @@ import android.util.Log;
 import android.view.View;
 
 import com.dyman.zhihudaily.R;
+import com.dyman.zhihudaily.ZhiHuDailyApp;
 import com.dyman.zhihudaily.adapter.SectionTotalAdapter;
 import com.dyman.zhihudaily.adapter.listener.AdapterItemClickListener;
 import com.dyman.zhihudaily.base.BaseFragment;
 import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.SectionsInfo;
 import com.dyman.zhihudaily.network.RetrofitHelper;
+import com.dyman.zhihudaily.utils.common.CommonUtil;
+import com.dyman.zhihudaily.utils.common.ToastUtil;
 import com.dyman.zhihudaily.widget.MyEmptyView;
 
 import rx.Observer;
@@ -79,6 +82,11 @@ public class SectionTotalFragment extends BaseFragment implements AdapterItemCli
 
     @Override
     public void loadData() {
+
+        if (!CommonUtil.isNetworkAvailable(ZhiHuDailyApp.getInstance())) {
+            ToastUtil.ShortToast(getString(R.string.str_network_not_available));
+            return;
+        }
 
         RetrofitHelper.getZhiHuAPI()
                 .getSectionList()

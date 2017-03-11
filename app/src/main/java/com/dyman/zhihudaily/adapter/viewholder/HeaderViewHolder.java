@@ -11,7 +11,7 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.NewsLatestInfo;
-import com.dyman.zhihudaily.module.news.NewsDetailActivity;
+import com.dyman.zhihudaily.module.news.StoryDetailActivity;
 import com.dyman.zhihudaily.widget.MyImageTextLayoutHolderView;
 
 import java.util.List;
@@ -55,7 +55,7 @@ public class HeaderViewHolder extends RecyclerView.ViewHolder implements OnItemC
         // TODO： 转跳文章页面
         Log.i(TAG, "------  转跳文章页面  ------");
 
-        Intent it = new Intent(convenientBanner.getContext(), NewsDetailActivity.class);
+        Intent it = new Intent(convenientBanner.getContext(), StoryDetailActivity.class);
         it.putExtra(IntentKeys.NEWS_ID, list.get(position).getId());
         convenientBanner.getContext().startActivity(it);
     }

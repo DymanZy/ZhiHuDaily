@@ -3,7 +3,6 @@ package com.dyman.zhihudaily.module.theme;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -20,13 +19,12 @@ import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.ZhiHuDailyApp;
 import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.base.IntentKeys;
-import com.dyman.zhihudaily.entity.NewsDetailInfo;
 import com.dyman.zhihudaily.entity.StoryExtraInfo;
 import com.dyman.zhihudaily.entity.ThemeStoryInfo;
 import com.dyman.zhihudaily.module.common.LoginActivity;
 import com.dyman.zhihudaily.module.news.CommentActivity;
-import com.dyman.zhihudaily.module.news.NewsDetailActivity;
 import com.dyman.zhihudaily.network.RetrofitHelper;
+import com.dyman.zhihudaily.utils.common.CommonUtil;
 import com.dyman.zhihudaily.utils.common.DisplayUtil;
 import com.dyman.zhihudaily.utils.common.ToastUtil;
 import com.dyman.zhihudaily.utils.common.WebUtils;
@@ -122,6 +120,11 @@ public class ThemeStoryActivity extends BaseActivity implements View.OnClickList
 
 
     private void loadData() {
+
+        if (!CommonUtil.isNetworkAvailable(ZhiHuDailyApp.getInstance())) {
+            ToastUtil.ShortToast(getString(R.string.str_network_not_available));
+            return;
+        }
 
         RetrofitHelper.getZhiHuAPI()
                 .getThemeStoryInfo(String.valueOf(storyID))

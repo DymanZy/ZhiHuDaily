@@ -2,7 +2,6 @@ package com.dyman.zhihudaily.module.section;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,14 +11,16 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.dyman.zhihudaily.R;
-import com.dyman.zhihudaily.adapter.NewListAdapter;
+import com.dyman.zhihudaily.ZhiHuDailyApp;
 import com.dyman.zhihudaily.adapter.SectionListAdapter;
 import com.dyman.zhihudaily.adapter.listener.AdapterItemClickListener;
 import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.SectionDetailInfo;
-import com.dyman.zhihudaily.module.news.NewsDetailActivity;
+import com.dyman.zhihudaily.module.news.StoryDetailActivity;
 import com.dyman.zhihudaily.network.RetrofitHelper;
+import com.dyman.zhihudaily.utils.common.CommonUtil;
+import com.dyman.zhihudaily.utils.common.ToastUtil;
 
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -79,6 +80,11 @@ public class SectionActivity extends BaseActivity implements AdapterItemClickLis
 
     private void loadData() {
 
+        if (!CommonUtil.isNetworkAvailable(ZhiHuDailyApp.getInstance())) {
+            ToastUtil.ShortToast(getString(R.string.str_network_not_available));
+            return;
+        }
+
         RetrofitHelper.getZhiHuAPI()
                 .getSection(String.valueOf(sectionID))
                 .subscribeOn(Schedulers.io())
@@ -116,7 +122,7 @@ public class SectionActivity extends BaseActivity implements AdapterItemClickLis
     public void onAdapterItemClick(int position) {
 
         int newID = adapter.getItem(position).getId();
-        Intent it = new Intent(SectionActivity.this, NewsDetailActivity.class);
+        Intent it = new Intent(SectionActivity.this, StoryDetailActivity.class);
         it.putExtra(IntentKeys.NEWS_ID, newID);
         startActivity(it);
     }

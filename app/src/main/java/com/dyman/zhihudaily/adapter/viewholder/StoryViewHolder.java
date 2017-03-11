@@ -11,12 +11,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.dyman.zhihudaily.R;
-import com.dyman.zhihudaily.adapter.listener.AdapterItemClickListener;
 import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.StoryBean;
-import com.dyman.zhihudaily.module.news.NewsDetailActivity;
-
-import java.util.List;
+import com.dyman.zhihudaily.module.news.StoryDetailActivity;
 
 /**
  * Created by dyman on 2017/3/2.
@@ -65,7 +62,7 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements View.OnC
         Log.i(TAG, "------  转跳文章页面  ------");
 
         if (v.getId() == R.id.body_cv_item_recycler_story) {
-            Intent it = new Intent(v.getContext(), NewsDetailActivity.class);
+            Intent it = new Intent(v.getContext(), StoryDetailActivity.class);
             it.putExtra(IntentKeys.NEWS_ID, storyID);
             v.getContext().startActivity(it);
         }

@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.dyman.zhihudaily.R;
+import com.dyman.zhihudaily.ZhiHuDailyApp;
 import com.dyman.zhihudaily.adapter.EditorAvatarAdapter;
 import com.dyman.zhihudaily.adapter.NewListAdapter;
 import com.dyman.zhihudaily.adapter.listener.AdapterItemClickListener;
@@ -22,6 +23,8 @@ import com.dyman.zhihudaily.base.IntentKeys;
 import com.dyman.zhihudaily.entity.ThemeInfo;
 import com.dyman.zhihudaily.module.user.EditorInfoActivity;
 import com.dyman.zhihudaily.network.RetrofitHelper;
+import com.dyman.zhihudaily.utils.common.CommonUtil;
+import com.dyman.zhihudaily.utils.common.ToastUtil;
 import com.dyman.zhihudaily.widget.MyImageTextLayout;
 
 import java.util.List;
@@ -113,6 +116,11 @@ public class ThemeActivity extends BaseActivity{
 
 
     private void loadData() {
+
+        if (!CommonUtil.isNetworkAvailable(ZhiHuDailyApp.getInstance())) {
+            ToastUtil.ShortToast(getString(R.string.str_network_not_available));
+            return;
+        }
 
         String themeID =  String.valueOf(getIntent().getIntExtra(IntentKeys.THEME_ID, 0));
 

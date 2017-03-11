@@ -10,11 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.dyman.zhihudaily.R;
+import com.dyman.zhihudaily.ZhiHuDailyApp;
 import com.dyman.zhihudaily.adapter.MainPageAdapter;
 import com.dyman.zhihudaily.base.BaseFragment;
 import com.dyman.zhihudaily.entity.NewsLatestInfo;
 import com.dyman.zhihudaily.entity.StoryBean;
 import com.dyman.zhihudaily.network.RetrofitHelper;
+import com.dyman.zhihudaily.utils.common.CommonUtil;
 import com.dyman.zhihudaily.utils.common.DateUtil;
 import com.dyman.zhihudaily.utils.common.ToastUtil;
 
@@ -140,6 +142,12 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
     @Override
     public void loadData() {
 
+        if (!CommonUtil.isNetworkAvailable(ZhiHuDailyApp.getInstance())) {
+            ToastUtil.ShortToast(getString(R.string.str_network_not_available));
+            return;
+        }
+
+        Log.i(TAG, "loadData: ---------------获取首页数据");
         RetrofitHelper.getZhiHuAPI()
                 .getNewsLatestList()
                 .subscribeOn(Schedulers.io())
@@ -176,6 +184,11 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
      */
     private void loadMoreData() {
 
+        if (!CommonUtil.isNetworkAvailable(ZhiHuDailyApp.getInstance())) {
+            ToastUtil.ShortToast(getString(R.string.str_network_not_available));
+            return;
+        }
+
         Log.i(TAG, "loadMoreData: ------------------- 尝试加载更多数据");
         handler.sendEmptyMessageDelayed(LOAD_DATA_TIMEOUT, 8000);
         RetrofitHelper.getZhiHuAPI().getNewsBeforeList(mDate)
@@ -197,7 +210,6 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
 
                  @Override
                  public void onNext(NewsLatestInfo info) {
-                     ToastUtil.ShortToast(getString(R.string.str_date_more_load_success));
                      adapter.addData(dataToItems(info));
                      mDate = info.getDate();
                  }

@@ -55,6 +55,7 @@
 
     <string name="str_agree">点赞 </string>
     <string name="str_pack_up">收起</string>
+    <string name="str_spread">展开</string>
     <string name="str_about">关于</string>
     <string name="str_login">登录</string>
     <string name="str_use_sina_login">使用新浪微博接口登录</string>
@@ -69,5 +70,6 @@
     <string name="str_get_story_extra_failure">无法获取文章额外数据</string>
     <string name="str_welcome_back">欢迎回来！</string>
     <string name="str_pre_read_schedule">上次阅读进度为 </string>
+    <string name="str_network_not_available">当前网络不可用，请检查网络连接</string>
 
 </resources>
