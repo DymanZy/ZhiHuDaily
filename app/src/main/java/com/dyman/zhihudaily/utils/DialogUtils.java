@@ -33,4 +33,17 @@ public class DialogUtils {
         builder.show();
     }
 
+
+    public static void showShareDialog(Context context, View.OnClickListener listener) {
+
+        View v = View.inflate(context, R.layout.dialog_share, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(v)
+                .setCancelable(true)
+                .create();
+        builder.show();
+
+    }
+
 }

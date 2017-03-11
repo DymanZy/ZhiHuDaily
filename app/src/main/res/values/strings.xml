@@ -53,10 +53,20 @@
     <string name="dialog_reply">回复</string>
 
 
+    <string name="share_sina">新浪微博</string>
+    <string name="share_weixin">微信</string>
+    <string name="share_friends">微信朋友圈</string>
+    <string name="share_evernote">印象笔记</string>
+    <string name="share_youdao">有道云笔记</string>
+    <string name="share_qq">QQ</string>
+    <string name="share_more">更多平台</string>
+
+
     <string name="str_agree">点赞 </string>
     <string name="str_pack_up">收起</string>
     <string name="str_spread">展开</string>
     <string name="str_about">关于</string>
+    <string name="str_share">分享</string>
     <string name="str_login">登录</string>
     <string name="str_use_sina_login">使用新浪微博接口登录</string>
     <string name="str_use_tencent_login">使用腾讯微博接口登录</string>

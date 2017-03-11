@@ -18,6 +18,7 @@ import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.module.home.MainPageFragment;
 import com.dyman.zhihudaily.module.section.SectionTotalFragment;
 import com.dyman.zhihudaily.module.theme.ThemeListFragment;
+import com.dyman.zhihudaily.utils.DialogUtils;
 import com.dyman.zhihudaily.utils.common.ToastUtil;
 
 public class MainActivity extends BaseActivity
@@ -182,7 +183,7 @@ public class MainActivity extends BaseActivity
                 break;
             case R.id.nav_share:
                 // 分享软件
-                ToastUtil.ShortToast("有待完善");
+                DialogUtils.showShareDialog(MainActivity.this, this);
                 break;
             case R.id.nav_about_author:
                 // 关于作者

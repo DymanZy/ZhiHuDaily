@@ -6,6 +6,7 @@
 
 
     <color name="background_gray">#F0F0F0</color>
+    <color name="dialog_bg">#EEEEEE</color>
     <color name="white">#FAFAFA</color>
     <color name="btn_bg_white">#DDDDDD</color>
     <color name="white_light">#AAFAFAFA</color>
