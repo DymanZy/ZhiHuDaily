@@ -69,14 +69,5 @@
     <string name="str_get_story_extra_failure">无法获取文章额外数据</string>
     <string name="str_welcome_back">欢迎回来！</string>
     <string name="str_pre_read_schedule">上次阅读进度为 </string>
-    <string name="str_spread">展开</string>
-    <string name="str_spread">展开</string>
-    <string name="str_spread">展开</string>
-    <string name="str_spread">展开</string>
-    <string name="str_spread">展开</string>
-    <string name="str_spread">展开</string>
-    <string name="str_spread">展开</string>
-    <string name="str_spread">展开</string>
-    <string name="str_spread">展开</string>
 
 </resources>
