@@ -16,6 +16,8 @@ public class SPUtils {
 
     private static final String IS_FIRST_OPEN = "is_first_open";
 
+    private static final String IS_AUTO_LOAD_IMAGE = "is_auto_load_image";
+
     private static SharedPreferences sp;
 
 
@@ -38,6 +40,30 @@ public class SPUtils {
         sp = ZhiHuDailyApp.getInstance().getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean(IS_FIRST_OPEN, false);
+        editor.commit();
+    }
+
+
+    /**
+     *  移动网络环境下是否自动加载图片
+     * @return
+     */
+    public static boolean isAutoLoadImage() {
+
+        sp = ZhiHuDailyApp.getInstance().getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        return sp.getBoolean(IS_AUTO_LOAD_IMAGE, true);
+    }
+
+
+    /**
+     *  设置移动网络环境下是否自动加载图片
+     * @param isAuto
+     */
+    public static void setAutoLoadImage(boolean isAuto) {
+
+        sp = ZhiHuDailyApp.getInstance().getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean(IS_AUTO_LOAD_IMAGE, isAuto);
         editor.commit();
     }
 

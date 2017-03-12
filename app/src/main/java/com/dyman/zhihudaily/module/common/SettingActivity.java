@@ -7,18 +7,22 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.dyman.zhihudaily.R;
 import com.dyman.zhihudaily.base.BaseActivity;
 import com.dyman.zhihudaily.module.section.SectionActivity;
+import com.dyman.zhihudaily.utils.SPUtils;
 import com.dyman.zhihudaily.utils.common.ToastUtil;
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener{
 
     private static final String TAG = SectionActivity.class.getSimpleName();
 
+    private CheckBox noImageModeCb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,17 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         findViewById(R.id.clearCache_rl_content_setting).setOnClickListener(this);
         findViewById(R.id.checkVersion_ll_content_setting).setOnClickListener(this);
         findViewById(R.id.feedback_ll_content_setting).setOnClickListener(this);
+
+        noImageModeCb = (CheckBox) findViewById(R.id.noImageMode_cb_content_setting);
+        noImageModeCb.setChecked(!SPUtils.isAutoLoadImage());
+
+        noImageModeCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SPUtils.setAutoLoadImage(!isChecked);
+            }
+        });
+
     }
 
 

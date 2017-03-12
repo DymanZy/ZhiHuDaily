@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ import com.dyman.zhihudaily.entity.NewsDetailInfo;
 import com.dyman.zhihudaily.entity.StoryExtraInfo;
 import com.dyman.zhihudaily.module.common.LoginActivity;
 import com.dyman.zhihudaily.network.RetrofitHelper;
+import com.dyman.zhihudaily.utils.SPUtils;
 import com.dyman.zhihudaily.utils.common.CommonUtil;
 import com.dyman.zhihudaily.utils.common.DisplayUtil;
 import com.dyman.zhihudaily.utils.common.WebUtils;
@@ -48,7 +50,7 @@ public class StoryDetailActivity extends BaseActivity implements ViewTreeObserve
     private ScrollView mScrollView;
     /** ScrollView 的子View */
     private View contentView;
-    private ScrollWebView webView;
+    private WebView webView;
     private Toolbar toolbar;
     private TextView markNumTv;
     private TextView commentNumTv;
@@ -115,7 +117,7 @@ public class StoryDetailActivity extends BaseActivity implements ViewTreeObserve
         mScrollView.getViewTreeObserver().addOnScrollChangedListener(this);
         contentView = mScrollView.getChildAt(0);
         //  初始化网页显示控件
-        webView = (ScrollWebView) findViewById(R.id.webView_activity_news_detail);
+        webView = (WebView) findViewById(R.id.webView_activity_news_detail);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.getSettings().setJavaScriptEnabled(true);// 设置支持JavaScript
     }

@@ -93,6 +93,7 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
         return R.layout.fragment_main_page;
     }
 
+
     @Override
     public void finishCreateView(Bundle state) {
 
@@ -100,6 +101,7 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
         lazyInit();
     }
 
+    
     @Override
     public void lazyInit() {
 

@@ -193,6 +193,7 @@ public class CommentActivity extends BaseActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
