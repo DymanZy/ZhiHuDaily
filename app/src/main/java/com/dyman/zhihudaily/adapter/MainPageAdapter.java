@@ -141,6 +141,22 @@ public class MainPageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return "";
     }
 
+    /**
+     *  获取最近更新的时间
+     * @return
+     */
+    public String getOldestDate() {
+        List<Item> items = new ArrayList<>();
+        items.addAll(datas);
+        Collections.reverse(items);
+        for (Item item : items) {
+            if (item.getType() == Type.TYPE_DATE) {
+                return item.getTime();
+            }
+        }
+        return null;
+    }
+
 
     public static class Item {
 

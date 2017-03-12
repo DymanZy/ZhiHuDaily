@@ -16,6 +16,7 @@ import com.dyman.zhihudaily.base.BaseFragment;
 import com.dyman.zhihudaily.entity.NewsLatestInfo;
 import com.dyman.zhihudaily.entity.StoryBean;
 import com.dyman.zhihudaily.network.RetrofitHelper;
+import com.dyman.zhihudaily.network.func.FunctionNewsLatestInfo2Item;
 import com.dyman.zhihudaily.utils.common.CommonUtil;
 import com.dyman.zhihudaily.utils.common.DateUtil;
 import com.dyman.zhihudaily.utils.common.ToastUtil;
@@ -30,6 +31,7 @@ import java.util.Locale;
 
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -150,32 +152,28 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
         Log.i(TAG, "loadData: ---------------获取首页数据");
         RetrofitHelper.getZhiHuAPI()
                 .getNewsLatestList()
+                .map(new FunctionNewsLatestInfo2Item())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<NewsLatestInfo>() {
-                               @Override
-                               public void onCompleted() {
-                                   Log.i(TAG, "onCompleted: load NewsLatestInfo data");
-                               }
+                .subscribe(new Observer<List<MainPageAdapter.Item>>() {
+                    @Override
+                    public void onCompleted() {
+                    }
 
-                               @Override
-                               public void onError(Throwable e) {
+                    @Override
+                    public void onError(Throwable e) {
+                        swipeRefreshLayout.setRefreshing(false);
+                        ToastUtil.ShortToast(getString(R.string.str_date_load_failure));
+                        e.printStackTrace();
+                    }
 
-                                   swipeRefreshLayout.setRefreshing(false);
-                                   ToastUtil.ShortToast(getString(R.string.str_date_load_failure));
-                                   e.printStackTrace();
-                               }
-
-                               @Override
-                               public void onNext(NewsLatestInfo newsLatestInfo) {
-
-                                   swipeRefreshLayout.setRefreshing(false);
-                                   ToastUtil.ShortToast(getString(R.string.str_date_load_success));
-                                   adapter.updateData(dataToItems(newsLatestInfo));
-                                   mDate = newsLatestInfo.getDate();
-                               }
-                           }
-                );
+                    @Override
+                    public void onNext(List<MainPageAdapter.Item> items) {
+                        swipeRefreshLayout.setRefreshing(false);
+                        ToastUtil.ShortToast(getString(R.string.str_date_load_success));
+                        adapter.updateData(items);
+                    }
+                });
     }
 
 
@@ -191,10 +189,16 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
 
         Log.i(TAG, "loadMoreData: ------------------- 尝试加载更多数据");
         handler.sendEmptyMessageDelayed(LOAD_DATA_TIMEOUT, 8000);
+        mDate = adapter.getOldestDate();
+        if (mDate == null) {
+            Log.i(TAG, "loadMoreData: ----------------------更新时间有误");
+            return;
+        }
         RetrofitHelper.getZhiHuAPI().getNewsBeforeList(mDate)
+             .map(new FunctionNewsLatestInfo2Item())
              .subscribeOn(Schedulers.io())
              .observeOn(AndroidSchedulers.mainThread())
-             .subscribe(new Observer<NewsLatestInfo>() {
+             .subscribe(new Observer<List<MainPageAdapter.Item>>() {
                  @Override
                  public void onCompleted() {
                      Log.i(TAG, "onCompleted: ------- 加载更多数据完成 ------");
@@ -209,43 +213,10 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
                  }
 
                  @Override
-                 public void onNext(NewsLatestInfo info) {
-                     adapter.addData(dataToItems(info));
-                     mDate = info.getDate();
+                 public void onNext(List<MainPageAdapter.Item> items) {
+                     adapter.addData(items);
                  }
              });
-    }
-
-
-    /**
-     *  TODO： 这部分工作怎么移交 map() 解决？？？？
-     * @param newsLatestInfo
-     * @return
-     */
-    private List<MainPageAdapter.Item> dataToItems(NewsLatestInfo newsLatestInfo) {
-
-        List<MainPageAdapter.Item> items = new ArrayList<>();
-
-        if (newsLatestInfo.getTop_stories() != null) {
-            MainPageAdapter.Item item1 = new MainPageAdapter.Item();
-            item1.setTopStoriesList(newsLatestInfo.getTop_stories());
-            item1.setType(MainPageAdapter.Type.TYPE_HEADER);
-            items.add(item1);
-        }
-
-        MainPageAdapter.Item item2 = new MainPageAdapter.Item();
-        item2.setTime(newsLatestInfo.getDate());
-        item2.setType(MainPageAdapter.Type.TYPE_DATE);
-        items.add(item2);
-
-        for (StoryBean story : newsLatestInfo.getStories()) {
-
-            MainPageAdapter.Item item = new MainPageAdapter.Item();
-            item.setStory(story);
-            item.setType(MainPageAdapter.Type.TYPE_STORY);
-            items.add(item);
-        }
-        return items;
     }
 
 
