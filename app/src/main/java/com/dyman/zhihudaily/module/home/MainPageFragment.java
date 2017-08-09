@@ -152,8 +152,8 @@ public class MainPageFragment extends BaseFragment implements SwipeRefreshLayout
         }
 
         Log.i(TAG, "loadData: ---------------获取首页数据");
-        RetrofitHelper.getZhiHuAPI()
-                .getNewsLatestList()
+        RetrofitHelper.getZhiHuAPI()    // 返回zhiHuService
+                .getNewsLatestList()    // 返回observable，由retrofit中的RxJavaCallAdapterFactory中对应CallAdapter.adapt创建
                 .map(new FunctionNewsLatestInfo2Item())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

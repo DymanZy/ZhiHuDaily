@@ -21,7 +21,7 @@ import java.util.List;
 /**
  *  某栏目内容的 adapter
  *
- * Created by dyman on 2017/2/20.
+ * Created by dyman on 2017sdfds
  */
 
 public class SectionListAdapter extends RecyclerView.Adapter<SectionListAdapter.MyViewHolder>{

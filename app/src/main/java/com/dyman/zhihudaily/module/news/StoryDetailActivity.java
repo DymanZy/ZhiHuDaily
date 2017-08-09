@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -120,7 +121,20 @@ public class StoryDetailActivity extends BaseActivity implements ViewTreeObserve
         webView = (WebView) findViewById(R.id.webView_activity_news_detail);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.getSettings().setJavaScriptEnabled(true);// 设置支持JavaScript
+
     }
+
+
+    public class DymanWebViewClient extends WebViewClient {
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            if(!webView.getSettings().getLoadsImagesAutomatically()) {
+                webView.getSettings().setLoadsImagesAutomatically(true);
+            }
+        }
+    }
+
 
 
     private void loadData(String newsID) {
