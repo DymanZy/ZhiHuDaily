@@ -11,7 +11,7 @@
 
     <include layout="@layout/layout_toolbar"/>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never">
@@ -27,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/activity_horizontal_margin"
+                android:visibility="gone"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
@@ -47,5 +48,6 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:overScrollMode="never"/>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
+
 </LinearLayout>

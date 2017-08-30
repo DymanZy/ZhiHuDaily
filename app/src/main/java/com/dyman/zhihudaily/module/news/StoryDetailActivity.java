@@ -74,8 +74,6 @@ public class StoryDetailActivity extends BaseActivity implements ViewTreeObserve
         initData();
         initView();
         loadData(String.valueOf(newsID));
-
-
     }
 
 
@@ -134,7 +132,6 @@ public class StoryDetailActivity extends BaseActivity implements ViewTreeObserve
             }
         }
     }
-
 
 
     private void loadData(String newsID) {

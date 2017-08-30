@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.dyman.zhihudaily.R;
@@ -45,7 +44,7 @@ public class ThemeActivity extends BaseActivity{
 
     private MyImageTextLayout headerView;
 
-    private RecyclerView contentRv;
+    private RecyclerView themeContentRv;
 
     private NewListAdapter contentAdapter;
 
@@ -97,9 +96,10 @@ public class ThemeActivity extends BaseActivity{
         });
         editorAvatarRv.setAdapter(editorAdapter);
 
-        contentRv = (RecyclerView) findViewById(R.id.themeContent_rv_activity_theme);
-        contentRv.setLayoutManager(new LinearLayoutManager(this));
-        contentRv.setItemAnimator(new DefaultItemAnimator());
+        themeContentRv = (RecyclerView) findViewById(R.id.themeContent_rv_activity_theme);
+        themeContentRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        themeContentRv.setItemAnimator(new DefaultItemAnimator());
+        themeContentRv.setNestedScrollingEnabled(false);
         contentAdapter = new NewListAdapter(this);
         contentAdapter.setAdapterListener(new AdapterItemClickListener() {
             @Override
@@ -111,7 +111,7 @@ public class ThemeActivity extends BaseActivity{
                 startActivity(it);
             }
         });
-        contentRv.setAdapter(contentAdapter);
+        themeContentRv.setAdapter(contentAdapter);
     }
 
 
@@ -167,7 +167,7 @@ public class ThemeActivity extends BaseActivity{
     private void bindEditorInfoIfHas(List<ThemeInfo.EditorsBean> editorList) {
 
         if (editorList != null) {
-             editorAdapter.updateAdapter(editorList);
+            editorAdapter.updateAdapter(editorList);
         }
     }
 
