@@ -44,8 +44,8 @@
                 android:id="@+id/themeContent_rv_activity_theme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:background="@color/background_gray"
+                android:padding="@dimen/activity_horizontal_margin"
                 android:overScrollMode="never"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
