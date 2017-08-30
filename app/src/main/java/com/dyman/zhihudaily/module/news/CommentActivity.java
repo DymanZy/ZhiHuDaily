@@ -79,8 +79,8 @@ public class CommentActivity extends BaseActivity {
 
     private void initView() {
 
-        longCAdapter = new CommentAdapter(ZhiHuDailyApp.getInstance());
-        shortCAdapter = new CommentAdapter(ZhiHuDailyApp.getInstance());
+        longCAdapter = new CommentAdapter(CommentActivity.this);
+        shortCAdapter = new CommentAdapter(CommentActivity.this);
 
         longCommentRv = (RecyclerView) findViewById(R.id.longComment_rv_activity_comment);
         longCommentRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
