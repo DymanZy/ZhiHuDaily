@@ -27,8 +27,6 @@ public class ZhiHuDailyApp extends Application{
 
     private void init() {
 
-//        DataBaseInit.initReadScheduleTable();
-
         // 初始化Stetho调试工具
         Stetho.initialize(
             Stetho.newInitializerBuilder(this)

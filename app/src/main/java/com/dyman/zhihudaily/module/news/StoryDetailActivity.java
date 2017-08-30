@@ -255,8 +255,17 @@ public class StoryDetailActivity extends BaseActivity implements ViewTreeObserve
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.share_iv_status:
-                ToastUtil.ShortToast("点击了分享");
-                // TODO
+
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(newInfo.getTitle()).append(" ")
+                        .append("link:").append(newInfo.getShare_url()).append(" ")
+                        .append("-分享自dyman的知乎日报");
+
+                Intent it_share = new Intent(Intent.ACTION_SEND);
+                it_share.setType("text/plain");
+                it_share.putExtra(Intent.EXTRA_TITLE, newInfo.getTitle());
+                it_share.putExtra(Intent.EXTRA_TEXT, stringBuilder.toString());
+                startActivity(it_share);
                 break;
 
             case R.id.collect_iv_status:

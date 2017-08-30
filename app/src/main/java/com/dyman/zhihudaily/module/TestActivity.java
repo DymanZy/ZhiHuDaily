@@ -1,6 +1,5 @@
 package com.dyman.zhihudaily.module;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -45,5 +44,4 @@ public class TestActivity extends BaseActivity {
             }
         });
     }
-
 }
