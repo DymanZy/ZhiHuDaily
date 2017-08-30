@@ -87,6 +87,7 @@ public class CommentActivity extends BaseActivity {
         longCommentRv.setItemAnimator(new DefaultItemAnimator());
         longCommentRv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         longCommentRv.setAdapter(longCAdapter);
+        longCommentRv.setNestedScrollingEnabled(false);
         longCAdapter.setAdapterItemClickListener(new AdapterItemClickListener() {
             @Override
             public void onAdapterItemClick(int position) {
@@ -100,6 +101,7 @@ public class CommentActivity extends BaseActivity {
         shortCommentRv.setItemAnimator(new DefaultItemAnimator());
         shortCommentRv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         shortCommentRv.setAdapter(shortCAdapter);
+        shortCommentRv.setNestedScrollingEnabled(false);
         shortCAdapter.setAdapterItemClickListener(new AdapterItemClickListener() {
             @Override
             public void onAdapterItemClick(int position) {
