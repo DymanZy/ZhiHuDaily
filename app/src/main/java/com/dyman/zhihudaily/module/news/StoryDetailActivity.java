@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.webkit.WebSettings;
@@ -25,6 +26,7 @@ import com.dyman.zhihudaily.database.dao.ReadSchedule;
 import com.dyman.zhihudaily.database.tool.TableOperate;
 import com.dyman.zhihudaily.entity.NewsDetailInfo;
 import com.dyman.zhihudaily.entity.StoryExtraInfo;
+import com.dyman.zhihudaily.listener.OnMultiClickListener;
 import com.dyman.zhihudaily.module.common.LoginActivity;
 import com.dyman.zhihudaily.network.RetrofitHelper;
 import com.dyman.zhihudaily.utils.SPUtils;
@@ -85,6 +87,22 @@ public class StoryDetailActivity extends BaseActivity implements ViewTreeObserve
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);
         }
+
+        toolbar.setOnTouchListener(new OnMultiClickListener(new OnMultiClickListener.MultiClickCallback() {
+            @Override
+            public void onDoubleClick(View v, MotionEvent event) {
+                ToastUtil.ShortToast("点击了两下");
+                Log.i(TAG, "onDoubleClick:    点击了两下");
+                mScrollView.smoothScrollTo(0, 0);//   顺滑滚动
+
+            }
+
+            @Override
+            public void onTripleClick(View v, MotionEvent event) {
+                ToastUtil.ShortToast("点击了三下");
+                Log.i(TAG, "onTripleClick:    点击了三下");
+            }
+        }));
     }
 
 
