@@ -75,7 +75,7 @@ public class RetrofitHelper {
 
                     mOkHttpClient = new OkHttpClient.Builder()
                             .cache(cache)
-                            .addInterceptor(interceptor)
+                            .addInterceptor(interceptor)//  添加网络日志打印的拦截器
                             .addNetworkInterceptor(new CacheInterceptor())// 自定义添加缓存
                             .addNetworkInterceptor(new StethoInterceptor())// faceBook的网络调试工具，可能要翻墙
                             .retryOnConnectionFailure(true)// 开启重连尝试
